@@ -149,7 +149,7 @@ h1 .vol{color:var(--lamp)}
 .panel p{font-size:14px;line-height:1.65;color:#C9DAE8;margin:0 0 18px}
 .panel .tb{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;
   color:var(--night);background:var(--lamp);border-radius:99px;padding:5px 12px;margin-bottom:12px}
-.panel button{width:100%;border:0;border-radius:14px;padding:14px;font-family:var(--sans);
+.panel > button{width:100%;border:0;border-radius:14px;padding:14px;font-family:var(--sans);
   font-size:15px;font-weight:700;color:var(--night);background:var(--dawn);cursor:pointer}
 .pick{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:16px;max-height:46vh;overflow-y:auto}
 .pick button{width:auto;padding:9px 4px;font-size:12px;font-weight:500;border-radius:10px;
@@ -179,6 +179,16 @@ textarea.ckin{resize:none;line-height:1.5}
 #devbar{margin-top:30px;padding-top:14px;border-top:1px dashed #2A4A68;display:flex;gap:8px}
 .rnum{font-family:var(--mono);font-size:8px;fill:#3A5A78;text-anchor:middle;dominant-baseline:middle;pointer-events:none;transition:fill .4s;font-weight:500}
 .rnum.lit{fill:#5A3800}
+.tabbar{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:16px}
+.tab{position:relative;background:#12293D;border:1px solid #24405A;border-radius:16px;
+  padding:12px 4px 10px;cursor:pointer;display:flex;flex-direction:column;
+  align-items:center;gap:4px;font-family:var(--sans);transition:transform .12s,border-color .2s}
+.tab:active{transform:translateY(2px)}
+.tab:focus-visible{outline:2px solid var(--dawn);outline-offset:2px}
+.tab .te{font-size:22px;line-height:1}
+.tab .tn{font-size:10.5px;color:var(--dim);letter-spacing:-.02em}
+.tab:hover{border-color:#3E6890}
+.tab .mbadge{position:absolute;top:6px;right:8px;margin:0}
 .btn2{width:100%;border:0;border-radius:14px;padding:12px;margin-top:9px;font-family:var(--sans);
   font-size:14px;font-weight:500;color:var(--dawn);background:#12293D;border:1px solid #2A4A68;cursor:pointer}
 .btn2:active{transform:translateY(1px)}
@@ -203,12 +213,14 @@ textarea.ckin{resize:none;line-height:1.5}
 .stbtn.on{background:#3A2A08;border-color:var(--lamp);color:var(--lamp-soft)}
 .stgot{text-align:center;font-size:12.5px;color:var(--lamp-soft);padding:4px 0}
 .stgot b{font-size:22px;display:block;margin-bottom:3px}
-.stmsgbox{display:flex;gap:6px;margin-top:9px}
-.stmsg{flex:1;background:#0C1F31;border:1px solid #2A4A68;border-radius:11px;
+.stmsgbox{display:flex;gap:6px;margin-top:9px;align-items:stretch}
+.stmsg{flex:1 1 auto;min-width:0;width:100%;box-sizing:border-box;
+  background:#0C1F31;border:1px solid #2A4A68;border-radius:11px;
   color:var(--paper);font-family:var(--sans);font-size:12.5px;padding:9px 11px;-webkit-appearance:none}
 .stmsg:focus{outline:2px solid var(--dawn);outline-offset:1px}
-.stmsgbtn{flex:0 0 auto;background:#12293D;border:1px solid #2A4A68;color:var(--dawn);
-  border-radius:11px;font-size:12px;padding:0 13px;cursor:pointer}
+.stmsgbtn{flex:0 0 auto;white-space:nowrap;background:#12293D;border:1px solid #2A4A68;
+  color:var(--dawn);border-radius:11px;font-size:12px;padding:0 14px;cursor:pointer;
+  width:auto;min-width:64px}
 .stword{text-align:center;font-size:12.5px;color:#DDF0D0;margin-top:7px;line-height:1.6}
 /* 지도 위 도장 */
 .todaystamp{position:absolute;top:10px;left:10px;z-index:5;font-size:26px;
@@ -306,12 +318,15 @@ textarea.ckin{resize:none;line-height:1.5}
 .calpanel{max-width:380px}
 .calnav{display:flex;align-items:center;justify-content:center;gap:14px;margin:2px 0 12px}
 .calnav h3{margin:0;font-size:17px}
-.cnb{background:#12293D;border:1px solid #2A4A68;color:var(--dawn);border-radius:9px;
-  width:32px;height:32px;font-size:16px;cursor:pointer;padding:0}
+.cnb{flex:0 0 auto;background:#12293D;border:1px solid #2A4A68;color:var(--dawn);
+  border-radius:9px;width:34px;min-width:34px;height:34px;font-size:17px;
+  cursor:pointer;padding:0;line-height:1}
+.calnav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:2px 0 12px}
+.calnav h3{flex:1;text-align:center}
 .calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:12px}
 .cdow{text-align:center;font-size:10px;color:var(--dim);padding:3px 0}
 .cdow.sun{color:#FF9B7A}
-.cday{aspect-ratio:1;border-radius:9px;background:#0C1F31;border:1px solid #1C3550;
+.cday{aspect-ratio:1;min-height:38px;border-radius:9px;background:#0C1F31;border:1px solid #1C3550;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
   font-size:11px;color:#5E7C99;position:relative}
 .cday.has{background:#1E3247;border-color:#3E6890;color:var(--paper);cursor:pointer}
@@ -465,18 +480,31 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
 }
 /* PC (가로 1000px 이상) — 지도와 정보를 나란히 */
 @media (min-width:1000px){
-  .wrap{max-width:1080px;padding:30px 30px 56px}
-  #mainWrap{display:grid;grid-template-columns:minmax(380px,1fr) minmax(340px,420px);
-    gap:28px;align-items:start}
-  .mapcard{grid-column:1;grid-row:1 / span 6;position:sticky;top:20px}
-  .info,.today,.sec{grid-column:2}
+  .wrap{max-width:1180px;padding:30px 34px 56px}
+  #mainWrap{display:grid;grid-template-columns:minmax(420px,1.15fr) minmax(360px,1fr);
+    gap:32px;align-items:start}
+  .mapcard{grid-column:1;grid-row:1 / span 8;position:sticky;top:20px}
+  .info,.today,.sec,.tabbar{grid-column:2}
   h1{font-size:38px}
   .badges.grid{grid-template-columns:repeat(6,1fr)}
   .icogrid{grid-template-columns:repeat(6,1fr)}
   .dexgrid{grid-template-columns:repeat(3,1fr)}
-  .panel{max-width:480px}
-  .infopanel,.setpanel,.dexpanel,.mailpanel{max-width:520px}
-  .ivfacts,.setbody,.dexbody,.mombody,.mailbody{max-height:52vh}
+  .tabbar{margin-top:18px}
+  .tab .te{font-size:24px}
+  .tab .tn{font-size:11.5px}
+  .panel{max-width:500px}
+  .infopanel,.setpanel,.dexpanel,.mailpanel,.calpanel{max-width:540px}
+  .ivfacts,.setbody,.dexbody,.mombody,.mailbody{max-height:54vh}
+  .cday{min-height:44px}
+}
+/* 넓은 모니터 */
+@media (min-width:1500px){
+  .wrap{max-width:1400px;padding:40px 48px 64px}
+  #mainWrap{grid-template-columns:minmax(520px,1.2fr) minmax(420px,1fr);gap:40px}
+  h1{font-size:42px}
+  .icogrid{grid-template-columns:repeat(8,1fr)}
+  .badges.grid{grid-template-columns:repeat(8,1fr)}
+  .dexgrid{grid-template-columns:repeat(4,1fr)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none !important;transition-duration:.01ms !important}}
 </style>
@@ -517,12 +545,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   <div class="today">
     <p class="cap">오늘의 지문 <b id="todayNo">1</b>번 <span id="todayTally"></span></p>
     <button class="btn" id="doBtn">오늘 지문 다 읽었어요</button>
-    <button class="btn2" id="calBtn">📅 나의 기록 달력</button>
-    <button class="btn2" id="mailBtn">💌 편지함<span id="mailBadge" class="mbadge" style="display:none"></span></button>
-    <button class="btn2" id="libBtn">📚 내 서재 (훈련 고르기)</button>
-    <button class="btn2" id="worldBtn">🗺️ 세계 고르기</button>
-    <button class="btn2" id="dexBtn">📖 우리 지역 도감</button>
-    <button class="btn2" id="momBtn">👩 엄마에게 보여주기</button>
+
   </div>
 
   <section class="sec">
@@ -535,8 +558,16 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <div class="chips" id="chips"></div>
   </section>
 
-  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-07-30-i</p>
+  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-07-30-j</p>
   </div>
+
+  <nav class="tabbar" id="tabbar">
+    <button class="tab" id="libBtn"><span class="te">🗺️</span><span class="tn">지도 고르기</span></button>
+    <button class="tab" id="dexBtn"><span class="te">📖</span><span class="tn">내 도감</span></button>
+    <button class="tab" id="calBtn"><span class="te">📅</span><span class="tn">내 기록</span></button>
+    <button class="tab" id="momBtn"><span class="te">👩</span><span class="tn">엄마에게</span>
+      <span id="mailBadge" class="mbadge" style="display:none"></span></button>
+  </nav>
 
   <!-- 테스트용 시작 -->
   <div id="devbar">
@@ -596,6 +627,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       </div>
     </div>
     <button id="momShare">📤 카카오·문자로 보내기</button>
+    <button id="momMail" class="btn2" style="margin-top:8px">💌 편지함 열기<span id="mailBadge2" class="mbadge" style="display:none"></span></button>
 
     <button id="momClose" class="skip">닫기</button>
   </div>
@@ -664,6 +696,9 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <button id="pinClose" class="skip">나중에 할게요</button>
   </div>
 </div>
+
+<button id="worldBtn" style="display:none"></button>
+<button id="mailBtn" style="display:none"></button>
 
 <div class="veil" id="calVeil">
   <div class="panel calpanel">
@@ -1369,8 +1404,17 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       b.onclick=function(){
         navBack();
         var ks2=Object.keys(COURSES[c].worlds);
-        loadWorld(ks2.length ? wkey(c,ks2[0]) : c+":none");
-        if(ks2.length && !state.field) setTimeout(askField,350);
+        if(!ks2.length){ setTimeout(function(){ loadWorld(c+":none"); },320); return; }
+        if(ks2.length===1){
+          setTimeout(function(){
+            loadWorld(wkey(c,ks2[0]));
+            if(!state.field) setTimeout(askField,350);
+          },320);
+          return;
+        }
+        setTimeout(function(){                       /* 세계가 여럿이면 목록 보여주기 */
+          loadCourse(c); openWorlds();
+        },320);
       };
       box.appendChild(b);
     });
@@ -1842,8 +1886,11 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     return allLetters().filter(function(l){ return isOpen(l) && !l.read; }).length;
   }
   function refreshMailBadge(){
-    var b=document.getElementById("mailBadge"), n=unreadCount();
-    if(n>0){ b.style.display=""; b.textContent=n; } else b.style.display="none";
+    var n=unreadCount();
+    ["mailBadge","mailBadge2"].forEach(function(id){
+      var b=document.getElementById(id); if(!b) return;
+      if(n>0){ b.style.display=""; b.textContent=n; } else b.style.display="none";
+    });
   }
   function fmtDay(d){ var p=(d||"").split("-"); return p.length===3?(Number(p[1])+"월 "+Number(p[2])+"일"):d; }
   function openMail(){
@@ -1888,6 +1935,9 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     catch(e){ location.reload(); }
   });
   document.getElementById("mailBtn").addEventListener("click",openMail);
+  document.getElementById("momMail").addEventListener("click",function(){
+    navBack(); setTimeout(openMail,320);
+  });
   document.getElementById("mailClose").addEventListener("click",navBack);
   document.getElementById("mailWrite").addEventListener("click",function(){
     document.getElementById("wText").value="";
