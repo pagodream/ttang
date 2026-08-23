@@ -133,6 +133,67 @@ h1 .vol{color:var(--lamp)}
   border:1px solid var(--lamp);border-radius:13px;color:var(--lamp);
   font-family:var(--sans);font-size:13.5px;font-weight:700;padding:12px;cursor:pointer}
 .bigmapbtn:active{transform:translateY(1px)}
+/* ===== 처음 오는 아이를 맞는 화면 ===== */
+#welcomeVeil,#pickCourseVeil{z-index:70}
+.welcome{width:100%;height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:18px;
+  background:var(--night);padding:24px 20px;box-sizing:border-box;
+  max-width:560px;margin:0 auto;text-align:center}
+.wcTop{display:flex;flex-direction:column;align-items:center;gap:8px}
+.wcIcon{font-size:52px;line-height:1;animation:pop .5s cubic-bezier(.2,.9,.3,1.5)}
+.wcTitle{font-family:var(--serif);font-size:36px;color:var(--lamp);margin:0;letter-spacing:1px}
+.wcTitle2{font-family:var(--serif);font-size:27px;color:var(--lamp);margin:0}
+.wcLead{font-size:16px;color:var(--paper);margin:4px 0 0;line-height:1.65}
+.wcLead b{color:var(--lamp-soft);font-size:19px}
+.wcLead2{font-size:13px;color:var(--dim);margin:6px 0 0}
+.wcDemo{position:relative;width:100%;max-width:280px;
+  background:#0C1F31;border:1px solid #24405A;border-radius:16px;padding:12px}
+#wcSvg{width:100%;height:auto;display:block;max-height:34vh}
+.wcbase{fill:#152B3F;stroke:#1E3A52;stroke-width:.6}
+.wccell{fill:#1E3247;stroke:#0C1F31;stroke-width:.4;opacity:.5}
+.wccell.on{fill:var(--lamp);opacity:1;stroke:var(--lamp-soft)}
+.wcCount{position:absolute;right:14px;bottom:14px;font-family:var(--mono);
+  font-size:12px;color:var(--dim)}
+.wcCount b{color:var(--lamp);font-size:16px}
+.wcBtn{width:100%;max-width:320px;background:linear-gradient(180deg,var(--lamp),#C8862B);
+  border:none;border-radius:17px;color:var(--night);
+  font-family:var(--sans);font-size:20px;font-weight:800;
+  padding:19px;cursor:pointer;box-shadow:0 8px 24px -8px rgba(255,194,75,.8)}
+.wcBtn:active{transform:translateY(2px)}
+.wcPick{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:440px}
+.wcCard{background:#12293D;border:1px solid #24405A;border-radius:18px;
+  padding:22px 14px;cursor:pointer;display:flex;flex-direction:column;
+  align-items:center;gap:7px;text-align:center;transition:all .18s}
+.wcCard:active{transform:translateY(2px)}
+.wcCard:hover{border-color:var(--lamp)}
+.wcE{font-size:40px;line-height:1}
+.wcCard b{font-family:var(--serif);font-size:19px;color:var(--paper)}
+.wcCard small{font-family:var(--mono);font-size:11px;color:var(--lamp)}
+.wcCard em{font-style:normal;font-size:11.5px;color:var(--dim);line-height:1.5;margin-top:3px}
+@media (min-width:700px){
+  .welcome{max-width:640px;gap:24px}
+  .wcIcon{font-size:64px}
+  .wcTitle{font-size:44px}
+  .wcLead{font-size:18px}
+  .wcLead b{font-size:22px}
+  .wcDemo{max-width:340px}
+  .wcBtn{font-size:22px;padding:22px;max-width:360px}
+  .wcE{font-size:48px}
+  .wcCard b{font-size:21px}
+  .wcCard em{font-size:12.5px}
+}
+@media (max-width:359px){
+  .wcIcon{font-size:42px}
+  .wcTitle{font-size:29px}
+  .wcLead{font-size:14px}
+  .wcLead b{font-size:16px}
+  .wcBtn{font-size:17px;padding:16px}
+  .wcPick{gap:9px}
+  .wcCard{padding:16px 9px}
+  .wcE{font-size:32px}
+  .wcCard b{font-size:16px}
+  .wcCard em{font-size:10.5px}
+}
 .fullveil{padding:0;align-items:stretch;justify-content:stretch}
 #bigMapVeil{z-index:60}
 .bigmap{width:100%;height:100%;display:flex;flex-direction:column;
@@ -903,7 +964,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <div class="chips" id="chips"></div>
   </section>
 
-  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-01-q</p>
+  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-01-s</p>
   </div>
 
   <div class="goalcard" id="goalBox"></div>
@@ -1050,6 +1111,47 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
 
 <button id="worldBtn" style="display:none"></button>
 <button id="mailBtn" style="display:none"></button>
+
+<div class="veil fullveil" id="welcomeVeil">
+  <div class="welcome">
+    <div class="wcTop">
+      <div class="wcIcon">🗺️</div>
+      <h1 class="wcTitle">땅따먹기</h1>
+      <p class="wcLead">지문 하나 읽으면<br><b>땅 한 칸이 내 것!</b></p>
+    </div>
+    <div class="wcDemo" id="wcDemo">
+      <svg id="wcSvg" viewBox="0 0 300 400" aria-hidden="true">
+        <path id="wcBase" class="wcbase"/>
+        <g id="wcCells"></g>
+      </svg>
+      <div class="wcCount"><b id="wcNum">0</b> / 250칸</div>
+    </div>
+    <button id="wcGo" class="wcBtn">🚩 시작하기</button>
+  </div>
+</div>
+
+<div class="veil fullveil" id="pickCourseVeil">
+  <div class="welcome">
+    <div class="wcTop">
+      <h2 class="wcTitle2">어디부터 갈까?</h2>
+      <p class="wcLead2">나중에 바꿀 수 있어요</p>
+    </div>
+    <div class="wcPick">
+      <button class="wcCard" data-c="read">
+        <span class="wcE">🇰🇷</span>
+        <b>우리나라</b>
+        <small>250개 고장</small>
+        <em>지문을 읽고<br>우리 땅을 되찾아요</em>
+      </button>
+      <button class="wcCard" data-c="kor">
+        <span class="wcE">🌍</span>
+        <b>세계</b>
+        <small>169개 나라</small>
+        <em>지문을 읽고<br>세계를 만나요</em>
+      </button>
+    </div>
+  </div>
+</div>
 
 <div class="veil fullveil" id="bigMapVeil">
   <div class="bigmap">
@@ -1317,7 +1419,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     var w=ensureWorld(DB,DB.cur);
     state={ claimed:w.claimed, unlocked:w.claimed.length,
             field:w.field, fieldE:w.fieldE,
-            home:DB.home, sound:DB.sound, asked:DB.asked,
+            home:DB.home, sound:DB.sound, asked:DB.asked, welcomed:DB.welcomed,
             streak:DB.streak, best:DB.best, lastDone:DB.lastDone, rested:DB.rested,
             todayN:DB.todayN, logs:DB.logs };
   }
@@ -1325,7 +1427,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     var w=ensureWorld(DB,DB.cur);
     if(st.claimed) w.claimed=st.claimed;     /* 참조가 끊겨도 확실히 반영 */
     w.field=st.field; w.fieldE=st.fieldE;
-    DB.home=st.home; DB.sound=st.sound; DB.asked=st.asked;
+    DB.home=st.home; DB.sound=st.sound; DB.asked=st.asked; DB.welcomed=st.welcomed;
     DB.streak=st.streak; DB.best=st.best; DB.lastDone=st.lastDone; DB.rested=st.rested;
     DB.todayN=st.todayN; DB.logs=st.logs;
     persist();
@@ -1638,7 +1740,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     if(ringOf&&ringOf[t.code]) ringOf[t.code].classList.add("hilite");
     hiliteKey="__one__";
     if(peekHi) clearTimeout(peekHi);
-    peekHi=setTimeout(clearHilite,12000);
+    peekHi=setTimeout(clearHilite,2000);
     var o=(WORLD.outlines||{})[t.grp]||{};
     var hb=document.getElementById("hiBar"), ht=document.getElementById("hiText");
     if(hb&&ht){
@@ -1660,7 +1762,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       });
       if(peekHi) clearTimeout(peekHi);
       hiliteKey=key;
-      peekHi=setTimeout(clearHilite,12000);
+      peekHi=setTimeout(clearHilite,2000);
       var hb0=document.getElementById("hiBar"), ht0=document.getElementById("hiText");
       if(hb0&&ht0){
         var nm0=(o.n||"");
@@ -1709,9 +1811,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       ht.textContent="📍 지도에서 "+(o.e?o.e+" ":"")+nm+josa(nm,"을","를")+" 비추고 있어요";
       hb.classList.add("on");
     }
-    peekHi=setTimeout(function(){  /* 오래 두면 저절로 꺼져요 */
-      clearHilite();
-    },12000);
+    peekHi=setTimeout(clearHilite,2000);   /* 2초 뒤 저절로 꺼져요 */
     peekBox.classList.remove("on"); void peekBox.getBoundingClientRect();
     peekBox.classList.add("on");
     if(peekTimer) clearTimeout(peekTimer);
@@ -2000,6 +2100,10 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     navBack(); setTimeout(openBigMap,220);
   });
   document.getElementById("bmClose").addEventListener("click",navBack);
+  document.getElementById("wcGo").addEventListener("click",openPickCourse);
+  [].forEach.call(document.querySelectorAll("#pickCourseVeil .wcCard"),function(b){
+    b.addEventListener("click",function(){ startWith(b.getAttribute("data-c")); });
+  });
   document.getElementById("hiClose").addEventListener("click",clearHilite);
   document.getElementById("setBtn").addEventListener("click",openSet);
   document.getElementById("setClose").addEventListener("click",navBack);
@@ -2395,6 +2499,66 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     bmPanX=Math.max(minX,Math.min(0,bmPanX));
     bmPanY=Math.max(minY,Math.min(0,bmPanY));
   }
+  /* ---------- 처음 오는 아이를 맞는 화면 ---------- */
+  function isFirstTime(){
+    if(!DB) return true;
+    var any=false;
+    Object.keys(DB.worlds||{}).forEach(function(k){
+      if((DB.worlds[k].claimed||[]).length) any=true;
+    });
+    return !any && !DB.welcomed;
+  }
+  function playWelcomeDemo(){
+    var KM=(typeof KOREAMAP!=="undefined")?KOREAMAP:null;
+    if(!KM) return;
+    var svg=document.getElementById("wcSvg");
+    svg.setAttribute("viewBox","0 0 "+KM.vw+" "+KM.vh);
+    document.getElementById("wcBase").setAttribute("d",KM.bg);
+    var g=document.getElementById("wcCells"); g.innerHTML="";
+    var codes=Object.keys(KM.sigu);
+    var cells=[];
+    codes.forEach(function(c){
+      var p=document.createElementNS(NS,"path");
+      p.setAttribute("d",KM.sigu[c].d);
+      p.setAttribute("class","wccell");
+      g.appendChild(p); cells.push(p);
+    });
+    /* 무작위로 한 칸씩 켜져요 */
+    var order=cells.slice().sort(function(){ return Math.random()-0.5; });
+    var i=0, num=document.getElementById("wcNum");
+    if(wcTimer) clearInterval(wcTimer);
+    wcTimer=setInterval(function(){
+      if(i>=order.length){ clearInterval(wcTimer); wcTimer=null; return; }
+      var step=Math.max(1,Math.round(order.length/60));
+      for(var j=0;j<step && i<order.length;j++,i++) order[i].classList.add("on");
+      if(num) num.textContent=i;
+    },70);
+  }
+  var wcTimer=null;
+  function openWelcome(){
+    navOpen(document.getElementById("welcomeVeil"));
+    setTimeout(playWelcomeDemo,250);
+  }
+  function openPickCourse(){
+    if(wcTimer){ clearInterval(wcTimer); wcTimer=null; }
+    navBack();
+    setTimeout(function(){
+      navOpen(document.getElementById("pickCourseVeil"));
+    },230);
+  }
+  function startWith(course){
+    DB.welcomed=true;
+    DB.course=course;
+    var ks=Object.keys(COURSES[course].worlds).sort();
+    DB.cur=wkey(course,ks[0]);
+    persist();
+    navBack();
+    setTimeout(function(){
+      loadWorld(DB.cur);
+      /* 설정은 나중에 — 첫 칸을 딴 뒤에 물어요 */
+    },240);
+  }
+
   function openBigMap(){
     var isRead=(DB.course==="read");
     document.getElementById("bmTitle").textContent = isRead ? "🇰🇷 우리나라 전국 지도" : "🌍 세계 지도";
@@ -3716,8 +3880,11 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
 
   loadCourse(DB.course);
   loadWorld(DB.cur);
-  if(state && !state.field) setTimeout(askField,400);
-  else if(state && !DB.asked && useHome()) setTimeout(askHome,400);
+  if(isFirstTime()){                    /* 처음 온 아이에게는 환영 화면부터 */
+    setTimeout(openWelcome,300);
+  }
+  else if(state && !state.field) setTimeout(askField,400);
+  else if(state && !DB.asked && useHome() && !isFirstTime()) setTimeout(askHome,400);
   if(DB.migrated||DB.upgraded){ setTimeout(function(){
     info.innerHTML="<b>이전 기록을 안전하게 옮겼어요</b>"; },900); }
   if(!DB.pinned && !isInstalled()){
