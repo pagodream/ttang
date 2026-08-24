@@ -105,6 +105,8 @@ h1 .vol{color:var(--lamp)}
 .wmwrap{position:relative;background:#0A1826;border:1px solid #24405A;
   border-radius:14px;overflow:hidden;margin-bottom:12px}
 .wmsvg{width:100%;height:auto;display:block;touch-action:none;cursor:grab}
+.bmbody .wmwrap,.bmbody .allmap{width:100%}
+.bmbody .amsvg,.bmbody .wmsvg{width:100%;height:auto}
 .wmsvg:active{cursor:grabbing}
 .wmbase{fill:#152B3F;stroke:#1E3A52;stroke-width:.3}
 .wmc{stroke:#0A1826;stroke-width:.3;cursor:pointer;transition:opacity .2s}
@@ -114,6 +116,12 @@ h1 .vol{color:var(--lamp)}
 .wmc.w7{fill:#5E9E5E} .wmc.w8{fill:#6E6E96}
 .wmc.got{stroke:var(--lamp);stroke-width:.7}
 .wmc.home{stroke:var(--dawn);stroke-width:1.2}
+.wmc.sel{stroke:#fff;stroke-width:1.6;opacity:1 !important}
+/* 고른 나라 — 흰 테두리와 밝은 색으로 (필터는 화면을 떨게 해서 안 써요) */
+.wmc.sel{stroke:#fff;stroke-width:1.6;opacity:1 !important}
+.wmc.w1.sel{fill:#FFD98A} .wmc.w2.sel{fill:#FFB59B} .wmc.w3.sel{fill:#DCC8FF}
+.wmc.w4.sel{fill:#A8DCFF} .wmc.w5.sel{fill:#A8F0DC} .wmc.w6.sel{fill:#FFEBB4}
+.wmc.w7.sel{fill:#CCFFCC} .wmc.w8.sel{fill:#BEBEDC}
 .wmc.w1.got{fill:#FFC24B} .wmc.w2.got{fill:#FF9678} .wmc.w3.got{fill:#C8AAFF}
 .wmc.w4.got{fill:#7FC8FF} .wmc.w5.got{fill:#7FE3C4} .wmc.w6.got{fill:#FFDC96}
 .wmc.w7.got{fill:#B4FFB4} .wmc.w8.got{fill:#A0A0C8}
@@ -904,12 +912,19 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   .bigmap{padding:28px 34px 32px;max-width:1180px}
   .bmhead h3{font-size:30px}
   .bmhead p{font-size:14.5px}
-  .bmbody{display:grid;grid-template-columns:minmax(480px,1.4fr) minmax(320px,1fr);
-    gap:26px;align-items:start;overflow-y:auto}
-  .bmbody .wmwrap,.bmbody .allmap{grid-column:1;position:sticky;top:0}
-  .bmbody .amlist{grid-column:2}
-  .wmsvg{max-height:72vh}
-  .amsvg{max-height:72vh}
+  /* 지도를 가로 전체로 크게 쓰고, 세계 목록은 아래에 가로로 늘어놓아요 */
+  /* PC — 지도를 화면 가득, 목록은 아래에 */
+  .bigmap{max-width:none;padding:20px 28px 24px}
+  .bmbody{display:block;overflow-y:auto}
+  .bmbody .wmwrap,.bmbody .allmap{width:100%;margin-bottom:16px}
+  .bmbody .amlist{grid-template-columns:repeat(4,1fr);display:grid;gap:8px}
+  .wmsvg{max-height:none;width:100%}
+  .amsvg{max-height:none;width:100%}
+  .wmwrap{max-width:1400px;margin-left:auto;margin-right:auto}
+  .amlist{max-width:1400px;margin-left:auto;margin-right:auto}
+  .wminfo{font-size:14.5px;padding:11px 15px}
+  .wminfo b{font-size:16px}
+  .wmzoom button{width:46px;height:46px;font-size:20px}
   .wminfo{font-size:14px}
   .wmzoom button{width:44px;height:44px;font-size:19px}
   .amrow{grid-template-columns:1fr 130px auto;padding:15px 17px}
@@ -929,19 +944,20 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
 }
 /* 넓은 모니터 (1500px 이상) */
 @media (min-width:1500px){
-  .bigmap{max-width:1400px;padding:34px 44px 40px}
+  .bigmap{max-width:none;padding:26px 44px 32px}
   .bmhead h3{font-size:34px}
-  .bmbody{grid-template-columns:minmax(620px,1.5fr) minmax(360px,1fr);gap:34px}
-  .wmsvg,.amsvg{max-height:76vh}
+  .bmbody .amlist{grid-template-columns:repeat(4,1fr)}
+  .wmwrap,.amlist{max-width:1600px}
+  .wmsvg,.amsvg{max-height:none;width:100%}
   .hgu{grid-template-columns:repeat(6,1fr)}
   .homepanel{max-width:960px !important}
 }
 /* 가로로 누운 화면 (폴드 펼침·태블릿 가로) */
 @media (min-height:420px) and (max-height:620px) and (min-width:700px){
-  .bmbody{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;overflow-y:auto}
-  .bmbody .wmwrap,.bmbody .allmap{grid-column:1}
-  .bmbody .amlist{grid-column:2}
-  .wmsvg,.amsvg{max-height:62vh}
+  .bmbody{display:grid;grid-template-columns:1.6fr 1fr;gap:18px;overflow-y:auto}
+  .bmbody .wmwrap,.bmbody .allmap{grid-column:1;margin-bottom:0}
+  .bmbody .amlist{grid-column:2;grid-template-columns:1fr}
+  .wmsvg,.amsvg{max-height:78vh;width:100%}
   .homebody{max-height:42vh}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none !important;transition-duration:.01ms !important}}
@@ -988,7 +1004,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <div class="peek" id="peek">
       <svg id="peekSvg" viewBox="0 0 100 100" aria-hidden="true">
         <path id="peekHalo" class="pkhalo"/>
-        <path id="peekPath" class="pkpath"/>
+        <g id="peekPath"></g>
       </svg>
       <div class="pkname" id="peekName"></div>
       <div class="pksub" id="peekSub"></div>
@@ -1013,7 +1029,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <div class="chips" id="chips"></div>
   </section>
 
-  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-01-u</p>
+  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-01-x</p>
   </div>
 
   <div class="goalcard" id="goalBox"></div>
@@ -1096,7 +1112,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       <defs><filter id="imGlow" x="-50%" y="-50%" width="200%" height="200%">
         <feGaussianBlur stdDeviation="5"/></filter></defs>
       <path id="imHalo" class="imhalo" filter="url(#imGlow)"/>
-      <path id="imPath" class="impath"/>
+      <g id="imPath"></g>
     </svg>
     <svg id="natSvg" viewBox="0 0 300 400" aria-hidden="true">
       <defs><filter id="natGlow" x="-60%" y="-60%" width="220%" height="220%">
@@ -1120,7 +1136,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <div class="big" id="ivEmo">📍</div>
     <div class="ivmaps" id="ivMaps">
       <svg id="ivShape" viewBox="0 0 100 100" aria-hidden="true">
-        <path id="ivShapePath" class="ivshape"/>
+        <g id="ivShapePath"></g>
         <text id="ivShapeEmo" class="ivshapeemo" x="50" y="52"></text>
       </svg>
       <svg id="ivMini" viewBox="0 0 360 440" aria-hidden="true">
@@ -1758,6 +1774,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   /* ---------- 나라(지역) 모양 잠깐 보기 ----------
      지도에서 땅을 누르면 그 모양만 크게 그려 줍니다. */
   var peekBox=document.getElementById("peek"), peekTimer=null, peekHi=null, hiliteKey=null;
+  var ivShapeD="", imShapeD="";       /* 그릴 모양을 잠시 담아 둡니다 */
   function clearHilite(){
     if(peekHi) clearTimeout(peekHi);
     hiliteKey=null;
@@ -1832,8 +1849,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     var vb=(bb.x0-pad)+" "+(bb.y0-pad)+" "+(w+pad*2)+" "+(h+pad*2);
     document.getElementById("peekSvg").setAttribute("viewBox",vb);
     var pp=document.getElementById("peekPath");
-    pp.setAttribute("d",o.d);
-    setDash(pp, o.pl); lockDrawn(pp);
+    drawShape(pp, o.d, "pkpath", 1.0);
     document.getElementById("peekHalo").setAttribute("d",o.d);
     var mine=mineCodes();
     var grp=BASE.filter(function(x){ return x.grp===key; });
@@ -2375,7 +2391,8 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
                 + (fld?(' · '+esc(fld)):'')+'</small>';
       b.onclick=function(){
         navBack(); loadWorld(full);
-        if(!state.field) setTimeout(askField,350);
+        /* 아직 아무것도 안 딴 첫 시작에는 묻지 않아요 — 첫 칸을 딴 뒤에 물어봅니다 */
+        if(!state.field && state.claimed && state.claimed.length) setTimeout(askField,350);
       };
       box.appendChild(b);
     });
@@ -2611,9 +2628,14 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     var ks=Object.keys(COURSES[course].worlds).sort();
     DB.cur=wkey(course,ks[0]);
     persist();
-    /* 뒤 화면을 먼저 준비하고 나서 창을 닫아요 */
     loadWorld(DB.cur);
-    navBack();
+    /* 이어서 "어느 세계로 갈까?"를 보여 줍니다 */
+    var pc=document.getElementById("pickCourseVeil");
+    var wv=document.getElementById("wVeil");
+    openWorlds();                    /* 세계 목록 준비 */
+    wv.classList.add("on");
+    setTimeout(function(){ pc.classList.remove("on"); },40);
+    navSwap(wv);
   }
 
   function openBigMap(){
@@ -2654,9 +2676,16 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       p.setAttribute("d",o.d);
       var got=!!mineAll[code];
       p.setAttribute("class","wmc w"+o.w+(got?" got":"")+(code===DB.home?" home":""));
+      p.setAttribute("data-code",code);
       p.style.opacity = got ? 1 : (0.3+(pct[o.w]||0)*0.5);
       p.addEventListener("click",function(ev){
-        ev.stopPropagation(); showWmInfo(code,o,got,course);
+        ev.stopPropagation();
+        /* 고른 나라를 환하게 표시해요 */
+        var prev=g.querySelector(".wmc.sel");
+        if(prev) prev.classList.remove("sel");
+        p.classList.add("sel");
+        g.appendChild(p);              /* 맨 위로 올려 테두리가 가려지지 않게 */
+        showWmInfo(code,o,got,course);
       });
       g.appendChild(p);
     });
@@ -2714,6 +2743,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       p.setAttribute("d",o.d);
       var got=!!mineAll[code];
       p.setAttribute("class","wmc w"+o.w+(got?" got":""));
+      p.setAttribute("data-code",code);
       p.style.opacity = got ? 1 : (0.3+ (pct[o.w]||0)*0.5);
       p.addEventListener("click",function(ev){
         ev.stopPropagation();
@@ -2754,6 +2784,12 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   }
   function showWmInfo(code,o,got,course){
     course=course||"kor";
+    /* 누른 곳을 밝게 표시 */
+    if(bmG){
+      [].forEach.call(bmG.querySelectorAll(".wmc.sel"),function(x){ x.classList.remove("sel"); });
+      var me=bmG.querySelector('[data-code="'+code+'"]');
+      if(me) me.classList.add("sel");
+    }
     var el=document.getElementById("wmInfo"); if(!el) return;
     var w=COURSES[course].worlds[o.w];
     el.innerHTML='<b>'+(o.e||"")+' '+esc(o.n)+'</b>'
@@ -3378,8 +3414,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     natSvg.classList.remove("on"); imSvg.style.display="";
     natHere.classList.remove("on"); natHalo.classList.remove("on");
     imPath.classList.remove("draw"); imHalo.classList.remove("on"); capBox.classList.remove("on");
-    imPath.setAttribute("d",o.d);
-    setDash(imPath, o.pl); imHalo.setAttribute("d",o.d);
+    imShapeD=o.d; imHalo.setAttribute("d",o.d);
     document.getElementById("imEmo").textContent=o.e||"";
     document.getElementById("imName").textContent=o.n||"";
     var isKor=(DB.course!=="read");
@@ -3424,7 +3459,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     } else wEl.style.display="none";
     void imPath.getBoundingClientRect();
     imVeil.classList.add("on");
-    imPath.classList.add("draw"); lockDrawn(imPath); imHalo.classList.add("on");
+    drawShape(imPath, imShapeD, "impath", 1.0); imHalo.classList.add("on");
     beep([523,659,784],0.45);
     setTimeout(function(){ capBox.classList.add("on"); },1000);
 
@@ -3482,6 +3517,65 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     if(pb) pb.classList.remove("on");
     if(typeof peekTimer!=="undefined" && peekTimer) clearTimeout(peekTimer);
   }
+  /* 조각이 여러 개인 지역도 끝까지 그려지도록,
+     조각을 하나씩 나눠 각자 자기 길이로 그립니다. */
+  function drawShape(host, d, cls, dur){
+    if(!host) return;
+    while(host.firstChild) host.removeChild(host.firstChild);
+    if(!d) return;
+    var segs=String(d).split("M").filter(function(x){ return x.trim(); });
+    if(!segs.length) return;
+    /* 조각별 길이를 재서 긴 것부터 그려요 (큰 땅이 먼저 보이게) */
+    var items=segs.map(function(sg){
+      var one="M"+sg;
+      var pts=[], tot=0;
+      sg.replace(/Z/g,"").split("L").forEach(function(q){
+        var a=q.trim().split(/\s+/);
+        if(a.length>=2){
+          var x=parseFloat(a[0]), y=parseFloat(a[1]);
+          if(!isNaN(x)&&!isNaN(y)) pts.push([x,y]);
+        }
+      });
+      for(var i=0;i<pts.length;i++){
+        var p1=pts[i], p2=pts[(i+1)%pts.length];
+        tot+=Math.sqrt((p2[0]-p1[0])*(p2[0]-p1[0])+(p2[1]-p1[1])*(p2[1]-p1[1]));
+      }
+      return {d:one, len:tot};
+    }).filter(function(x){ return x.len>0; });
+    items.sort(function(a,b){ return b.len-a.len; });
+    var total=items.reduce(function(s2,x){ return s2+x.len; },0) || 1;
+    var D = dur || 1.2;
+    /* 조각이 아주 많으면 큰 것 위주로 보여 주고 작은 섬들은 함께 나타냅니다 */
+    var MAIN = Math.min(items.length, 8);
+    var acc=0;
+    items.forEach(function(it,idx){
+      var p=document.createElementNS(NS,"path");
+      p.setAttribute("d",it.d);
+      p.setAttribute("class",cls);
+      var L=Math.ceil(it.len)+2;
+      p.style.strokeDasharray=L;
+      p.style.strokeDashoffset=L;
+      /* 전체 시간을 길이 비율로 나눠 이어 그려요 */
+      var share, delay;
+      if(idx<MAIN){                          /* 큰 조각: 차례로 그려요 */
+        share=Math.max(0.45, D*0.62*(it.len/total)*items.length/MAIN);
+        share=Math.min(share, D*0.8);
+        delay=acc; acc+=share*0.45;
+      } else {                               /* 작은 섬들: 큰 것 그리는 동안 함께 */
+        share=0.5;
+        delay=D*0.3 + (idx-MAIN)*0.012;
+      }
+      p.style.animation="drawline "+share.toFixed(2)+"s ease-out "+delay.toFixed(2)+"s forwards";
+      /* 다 그려지면 확실히 닫아 둡니다 */
+      p.addEventListener("animationend",function(){ p.style.strokeDashoffset=0; });
+      host.appendChild(p);
+    });
+    /* 혹시 애니메이션이 안 끝나도 마지막엔 다 보이게 */
+    setTimeout(function(){
+      [].forEach.call(host.childNodes,function(x){ if(x.style) x.style.strokeDashoffset=0; });
+    }, (acc+1.6)*1000);
+  }
+
   function setDash(el, len){
     var L = len;
     /* 저장된 길이가 없거나 이상하면 브라우저에게 직접 물어봐요 */
@@ -3505,7 +3599,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   function setShapeBox(bb, sp){
     var b;
     if(bb && bb.length===4){ b={x:bb[0],y:bb[1],width:bb[2],height:bb[3]}; }
-    else { try{ b=sp.getBBox(); }catch(e){ b=null; } }
+    else { b=null; }   /* 미리 계산된 크기가 없으면 기본 화면으로 */
     if(!b || !b.width){ document.getElementById("ivShape").setAttribute("viewBox","0 0 100 100"); return; }
     var pad=Math.max(b.width,b.height)*0.12+2;
     var side=Math.max(b.width,b.height)+pad*2;
@@ -3540,12 +3634,10 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     var useB = (t.kind!=="mark" && t.d) ? t.bb : o.bb;
     if(useD){
       sp.style.display=""; se.textContent="";
-      sp.setAttribute("d",useD);
       setShapeBox(useB, sp);
-      setDash(sp, (t.kind!=="mark" && t.d) ? t.pl : o.pl);
-      void sp.getBoundingClientRect(); sp.classList.add("draw"); lockDrawn(sp);
+      drawShape(sp, useD, "ivshape", 1.3);
     } else {
-      sp.style.display="none"; sp.removeAttribute("d");
+      sp.style.display="none"; drawShape(sp,"","ivshape");
       document.getElementById("ivShape").setAttribute("viewBox","0 0 100 100");
       se.textContent="🔒";
     }
@@ -3619,11 +3711,10 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     sp.classList.remove("draw"); se.classList.remove("on");
     if(t.kind==="land" && t.d){
       sp.style.display=""; se.textContent="";
-      sp.setAttribute("d",t.d);
       setShapeBox(t.bb || ((WORLD.outlines||{})[t.grp]||{}).bb, sp);
-      setDash(sp, t.pl);
+      ivShapeD=t.d;
     } else {
-      sp.style.display="none"; sp.removeAttribute("d");
+      sp.style.display="none"; drawShape(sp,"","ivshape"); ivShapeD="";
       document.getElementById("ivShape").setAttribute("viewBox","0 0 100 100");
       se.textContent=t.e||"📍";
     }
@@ -3672,7 +3763,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       setTimeout(function(){ cb&&cb(); },380);
     });
     void sp.getBoundingClientRect();
-    sp.classList.add("draw"); lockDrawn(sp); se.classList.add("on");
+    drawShape(sp, ivShapeD, "ivshape", 1.3); se.classList.add("on");
     mh.classList.add("on"); md.classList.add("on");
   }
 
@@ -3773,6 +3864,13 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
                      field:state.field||""});
     if(DB.wish===claiming.code){ DB.wish=null; persist(); }
     store.set(state); render(); claim(claiming);
+    /* 첫 칸을 딴 뒤에 설정을 물어봐요 (처음부터 묻지 않고) */
+    if(state.claimed.length===1){
+      setTimeout(function(){
+        if(!state.field) askField();
+        else if(useHome() && !DB.asked) askHome();
+      },4200);
+    }
     setTimeout(function(){
       refreshMailBadge();
       if(unreadCount()>0) info.innerHTML="<b>💌 새 편지가 도착했어요!</b> 편지함을 열어 보세요";
