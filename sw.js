@@ -1,8 +1,8 @@
 /* 땅따먹기 — 오프라인에서도 열리게 하고, 앱으로 설치되게 합니다. */
-var CACHE = "ttang-v1";
+var CACHE = "ttang-v2";
 var FILES = [
   "./", "./index.html", "./manifest.json",
-  "./icon-192.png", "./icon-512.png", "./apple-touch-icon.png"
+  "./icon-192.png", "./icon-512.png", "./icon-mask.png", "./apple-touch-icon.png"
 ];
 
 self.addEventListener("install", function(e){
