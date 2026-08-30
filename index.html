@@ -837,10 +837,72 @@ textarea.ckin{resize:none;line-height:1.5}
   padding:14px 15px;margin-bottom:9px;position:relative}
 .mletter.sealed{background:#12293D;border-color:#2A4A68;opacity:.75}
 .mletter .mdt{font-family:var(--mono);font-size:10px;color:var(--dim);margin-bottom:6px}
-.mletter p{font-size:13.5px;color:#F0E6CE;line-height:1.75;margin:0;white-space:pre-wrap}
+.mletter p{font-size:13.5px;color:#F0E6CE;line-height:1.85;margin:0;white-space:pre-wrap;
+  word-break:keep-all}
+.mletter{max-height:none}
+.mailbody{max-height:58vh;overflow-y:auto}
 .mletter.sealed p{color:#7C96AE;font-size:12.5px}
 .mletter .mfrom{font-size:11.5px;color:var(--lamp-soft);text-align:right;margin-top:8px}
 .mletter .mseal{font-size:18px;position:absolute;top:12px;right:14px}
+/* ===== 편지 ===== */
+.whogrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:7px}
+.whogrid button{background:#12293D;border:1px solid #24405A;border-radius:12px;
+  color:var(--paper);font-family:var(--sans);font-size:12px;padding:11px 4px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:4px}
+.whogrid button .we{font-size:19px;line-height:1}
+.whogrid button.on{border-color:var(--lamp);background:#173247;color:var(--lamp)}
+.tellgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}
+.tg{background:#12293D;border:1px solid #24405A;border-radius:13px;color:var(--paper);
+  font-family:var(--sans);font-size:13px;font-weight:700;padding:12px 8px;cursor:pointer;
+  display:flex;flex-direction:column;gap:3px;align-items:center}
+.tg small{font-size:10.5px;font-weight:400;color:var(--dim);line-height:1.4}
+.tg.on{border-color:var(--lamp);background:#173247;color:var(--lamp)}
+.tg.on small{color:var(--lamp-soft)}
+/* 편지가 날아와요 */
+.flyveil{position:fixed;inset:0;z-index:78;display:none;
+  align-items:center;justify-content:center;background:rgba(6,16,26,.9)}
+.flyveil.on{display:flex}
+.flywrap{text-align:center;padding:24px}
+.envelope{font-size:76px;line-height:1;animation:flyin 1.1s cubic-bezier(.2,.9,.3,1.2) forwards}
+@keyframes flyin{
+  0%{transform:translateY(-180px) rotate(-18deg) scale(.5);opacity:0}
+  60%{transform:translateY(8px) rotate(4deg) scale(1.08);opacity:1}
+  100%{transform:translateY(0) rotate(0) scale(1);opacity:1}
+}
+.flyfrom{font-family:var(--serif);font-size:23px;color:var(--lamp);margin-top:18px;
+  opacity:0;animation:fadeup .5s ease-out .9s forwards}
+.flysub{font-size:14px;color:var(--paper);margin-top:8px;
+  opacity:0;animation:fadeup .5s ease-out 1.1s forwards}
+@keyframes fadeup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.flybtn{margin-top:22px;background:linear-gradient(180deg,var(--lamp),#C8862B);border:none;
+  border-radius:15px;color:var(--night);font-family:var(--sans);font-size:16px;font-weight:800;
+  padding:15px 30px;cursor:pointer;opacity:0;animation:fadeup .5s ease-out 1.3s forwards}
+.flylater{display:block;margin:12px auto 0;background:transparent;border:none;
+  color:var(--dim);font-family:var(--sans);font-size:13px;cursor:pointer;
+  text-decoration:underline;text-underline-offset:3px;
+  opacity:0;animation:fadeup .5s ease-out 1.5s forwards}
+/* 아직 안 뜯은 편지 */
+.mletter.unread{background:#173247;border:1px solid var(--lamp);cursor:pointer;
+  text-align:center;padding:20px 16px}
+.mletter.unread:active{transform:translateY(1px)}
+.unenv{font-size:42px;line-height:1;animation:wiggle 2.2s ease-in-out infinite}
+@keyframes wiggle{0%,88%,100%{transform:rotate(0)}92%{transform:rotate(-7deg)}96%{transform:rotate(7deg)}}
+.unfrom{font-family:var(--serif);font-size:16px;color:var(--lamp);margin-top:9px}
+.unhint{font-size:12px;color:var(--lamp-soft);margin-top:5px}
+#replyVeil{z-index:59}
+.quiethint{font-size:11.5px;color:var(--dim);background:#0C1F31;border-radius:10px;
+  padding:9px 11px;margin:0 0 14px;line-height:1.5}
+.rpquick{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.rpquick button{background:#12293D;border:1px solid #2A4A68;border-radius:99px;
+  color:var(--paper);font-family:var(--sans);font-size:12.5px;padding:8px 13px;cursor:pointer}
+.rpquick button:active{transform:translateY(1px)}
+.mreply{margin-top:9px;padding-top:9px;border-top:1px dashed #2A4A68}
+.mreplybtn{width:100%;background:transparent;border:1px solid var(--lamp);border-radius:11px;
+  color:var(--lamp);font-family:var(--sans);font-size:13px;padding:10px;cursor:pointer;margin-top:9px}
+.mreplytxt{font-size:13px;color:var(--dawn);line-height:1.6;margin-top:8px;
+  background:#0C1F31;border-radius:10px;padding:10px 12px}
+.mreplytxt b{color:var(--lamp-soft);font-size:11px;font-family:var(--mono);display:block;margin-bottom:4px}
+.mfrom2{font-family:var(--mono);font-size:11px;color:var(--lamp);margin-bottom:6px}
 .mempty2{text-align:center;font-size:13px;color:var(--dim);padding:22px 0;line-height:1.7}
 .newmail{animation:capin .7s ease-out}
 .ebox{text-align:center;padding:46px 18px;border:1px dashed #2A4A68;border-radius:20px;margin:10px 0 4px}
@@ -1223,7 +1285,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <div class="chips" id="chips"></div>
   </section>
 
-  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-03-t</p>
+  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-04-d</p>
   </div>
 
   <div class="goalcard" id="goalBox"></div>
@@ -1518,6 +1580,16 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   </div>
 </div>
 
+<div class="flyveil" id="flyVeil">
+  <div class="flywrap">
+    <div class="envelope" id="flyEnv">💌</div>
+    <div class="flyfrom" id="flyFrom">엄마에게서 편지가 왔어요</div>
+    <div class="flysub" id="flySub">오늘 열 수 있어요</div>
+    <button class="flybtn" id="flyOpen">지금 열어 볼래요</button>
+    <button class="flylater" id="flyLater">나중에 볼래요</button>
+  </div>
+</div>
+
 <div class="veil" id="mailVeil">
   <div class="panel mailpanel">
     <div class="big">💌</div>
@@ -1529,11 +1601,29 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   </div>
 </div>
 
+<div class="veil" id="replyVeil">
+  <div class="panel">
+    <div class="big">💗</div>
+    <div class="tb" id="rpTag">답장 쓰기</div>
+    <h3 id="rpWho">엄마에게</h3>
+    <p class="lead">짧아도 좋아요. 한 줄이면 충분해요.</p>
+    <div class="rpquick" id="rpQuick"></div>
+    <textarea id="rpText" rows="4" class="ckin" placeholder="고마워요! 나도 사랑해요"></textarea>
+    <button id="rpSave">💌 답장 보내기</button>
+    <button id="rpCancel" class="skip">그만둘래요</button>
+  </div>
+</div>
+
 <div class="veil" id="writeVeil">
   <div class="panel">
     <div class="big">✏️</div>
-    <div class="tb">엄마·아빠만 써 주세요</div>
+    <div class="tb">어른만 써 주세요</div>
     <h3>아이에게 편지 쓰기</h3>
+    <p class="quiethint">🤫 「몰래 둘래요」를 고르면 화면에 자국이 남지 않아요</p>
+    <label class="ckl">누가 보내나요?
+      <div class="whogrid" id="wWho"></div>
+      <input id="wWhoEtc" class="ckin" style="display:none;margin-top:7px" placeholder="예: 이모, 선생님">
+    </label>
     <label class="ckl">언제 열리게 할까요?
       <select id="wOpen" class="ckin">
         <option value="now">지금 바로 열려요</option>
@@ -1549,6 +1639,12 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     </label>
     <label class="ckl">편지 내용
       <textarea id="wText" rows="5" class="ckin" placeholder="오늘도 애썼어. 네가 하루하루 채워 가는 걸 보면 참 대견해."></textarea>
+    </label>
+    <label class="ckl" id="wTellBox">아이에게 미리 알려 줄까요?
+      <div class="tellgrid">
+        <button type="button" class="tg on" data-tell="1">📬 알려 줄래요<small>기다릴 거리가 생겨요</small></button>
+        <button type="button" class="tg" data-tell="0">🎁 몰래 둘래요<small>그날 깜짝 선물처럼</small></button>
+      </div>
     </label>
     <p class="ckwarn" id="wWarn"></p>
     <button id="wSave">💌 편지 넣어 두기</button>
@@ -1751,7 +1847,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     state={ claimed:w.claimed, unlocked:w.claimed.length,
             field:w.field, fieldE:w.fieldE,
             home:DB.home, sound:DB.sound, asked:DB.asked, welcomed:DB.welcomed,
-            habits:DB.habits, doing:DB.doing, tells:DB.tells,
+            habits:DB.habits, doing:DB.doing, tells:DB.tells, mile:DB.mile,
             streak:DB.streak, best:DB.best, lastDone:DB.lastDone, rested:DB.rested,
             todayN:DB.todayN, logs:DB.logs };
   }
@@ -1760,7 +1856,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     if(st.claimed) w.claimed=st.claimed;     /* 참조가 끊겨도 확실히 반영 */
     w.field=st.field; w.fieldE=st.fieldE;
     DB.home=st.home; DB.sound=st.sound; DB.asked=st.asked; DB.welcomed=st.welcomed;
-    DB.habits=st.habits||{}; DB.doing=st.doing||{}; DB.tells=st.tells||{};
+    DB.habits=st.habits||{}; DB.doing=st.doing||{}; DB.tells=st.tells||{}; DB.mile=st.mile||{};
     DB.streak=st.streak; DB.best=st.best; DB.lastDone=st.lastDone; DB.rested=st.rested;
     DB.todayN=st.todayN; DB.logs=st.logs;
     persist();
@@ -3319,6 +3415,15 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
         qz.forEach(function(x){ lines.push("· "+x.wow); });
       }
     }
+    /* 아이가 쓴 답장이 있으면 함께 보내요 */
+    var rp=allLetters().filter(function(l){ return l.reply && l.replyDate===today(); });
+    if(rp.length){
+      lines.push("");
+      lines.push("💗 아이가 쓴 답장");
+      rp.forEach(function(l){
+        lines.push("· "+(l.who||"엄마·아빠")+"께 — "+l.reply);
+      });
+    }
     var tw=todayLearned().filter(function(l){
       return l.wow && !said[String(l.wow).slice(0,12)];
     });
@@ -3523,6 +3628,487 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
      '봉인 편지'는 정해진 칸수를 채우면 저절로 열려요. */
   var mailVeil=document.getElementById("mailVeil");
   var writeVeil=document.getElementById("writeVeil");
+  /* ---------- 편지 ---------- */
+  var WHO=[{k:"엄마",e:"👩"},{k:"아빠",e:"👨"},{k:"할머니",e:"👵"},{k:"할아버지",e:"👴"},
+           {k:"이모",e:"🌷"},{k:"삼촌",e:"🧢"},{k:"선생님",e:"📚"},{k:"직접 적기",e:"✏️"}];
+  var WHO_AUTO={k:"땅따먹기",e:"🗺️"};
+  var wWhoPick="엄마", wTellPick=1;
+  function buildWho(){
+    var box=document.getElementById("wWho"); if(!box) return;
+    box.innerHTML="";
+    WHO.forEach(function(x){
+      var b=document.createElement("button");
+      b.type="button";
+      b.className=(x.k===wWhoPick?"on":"");
+      b.innerHTML='<span class="we">'+x.e+'</span>'+esc(x.k);
+      b.onclick=function(){
+        wWhoPick=x.k;
+        [].forEach.call(box.children,function(c){ c.className=""; });
+        b.className="on";
+        document.getElementById("wWhoEtc").style.display=(x.k==="직접 적기")?"":"none";
+      };
+      box.appendChild(b);
+    });
+    document.getElementById("wWhoEtc").style.display=(wWhoPick==="직접 적기")?"":"none";
+    var tg=document.querySelectorAll("#wTellBox .tg");
+    [].forEach.call(tg,function(b){
+      b.className="tg"+((+b.getAttribute("data-tell")===wTellPick)?" on":"");
+      b.onclick=function(){
+        wTellPick=+b.getAttribute("data-tell");
+        [].forEach.call(tg,function(c){ c.className="tg"; });
+        b.className="tg on";
+      };
+    });
+  }
+  function whoOf(l){
+    var w=l.who||"엄마·아빠";
+    if(w===WHO_AUTO.k) return {name:WHO_AUTO.k, e:WHO_AUTO.e};
+    var f=null;
+    WHO.forEach(function(x){ if(x.k===w) f=x; });
+    return {name:w, e:(f?f.e:"💌")};
+  }
+  /* 새로 열린 편지가 있으면 봉투가 날아와요 */
+  function checkLetterFly(){
+    var ls=allLetters();
+    for(var i=0;i<ls.length;i++){
+      var l=ls[i];
+      if(isOpen(l) && !l.read && !l.flown){
+        l.flown=true; persist();
+        showFly(l);
+        return;
+      }
+    }
+  }
+  /* 아이가 쓰는 답장 */
+  var RQ=["고마워요!","나도 사랑해요","오늘도 열심히 할게요","보고 싶어요","최고예요!","힘이 났어요"];
+  var rpTarget=null;
+  /* ---------- 특별한 날 축하 편지 ----------
+     엄마가 안 써도 빈 편지함이 되지 않게, 앱이 먼저 축하해요. */
+  /* 세계마다 다른 완성 편지 */
+  var WORLD_LETTER={
+    "read:1":"남쪽 땅을 모두 채웠어요! 🎉\n\n"
+      +"제주에서 시작해 전라도 끝까지 왔어요.\n"
+      +"섬과 갯벌, 차밭과 들판을 지나왔지요.\n\n"
+      +"그런데 혹시 이런 생각 안 해봤나요?\n"
+      +"'왜 하필 저기에 저게 있을까?'\n\n"
+      +"보성에 차밭이 있는 건 산비탈에 안개가 끼어서예요.\n"
+      +"완도에 청해진이 선 건 섬이 많아 바닷길을 지키기 좋아서고요.\n"
+      +"신안에서 소금이 나는 건 갯벌이 넓어서지요.\n\n"
+      +"아무 데나 생긴 게 아니었어요.\n"
+      +"땅이 그렇게 생겼으니까 사람도 그렇게 산 거예요.\n\n"
+      +"이제 지도를 보면 지명만 보이지 않을 거예요.\n"
+      +"'왜 여기일까'가 같이 보이거든요.\n\n"
+      +"그 눈으로 다음 땅도 봐 주세요.",
+
+    "read:2":"남동쪽 땅을 모두 채웠어요! 🎉\n\n"
+      +"부산과 울산, 경남을 지나왔어요.\n\n"
+      +"이 땅에 유난히 많았던 게 무엇인지 아세요?\n"
+      +"공장이에요. 조선소, 자동차, 제철소.\n"
+      +"그런데 하나같이 바닷가에 붙어 있었지요.\n\n"
+      +"왜 그럴까요?\n"
+      +"쇠와 배는 너무 무거워서 육지로 못 나르거든요.\n"
+      +"그래서 항구 옆에 공장을 세운 거예요.\n\n"
+      +"신기한 건 이게 어제오늘 일이 아니라는 거예요.\n"
+      +"이천 년 전 가야 사람들도 이 땅에서 철을 다뤘고,\n"
+      +"그 철을 배에 실어 바다로 나갔어요.\n\n"
+      +"땅은 오래 기억해요.\n"
+      +"옛날 사람이 하던 일을 지금 사람도 하고 있으니까요.",
+
+    "read:3":"동북쪽 땅을 모두 채웠어요! 🎉\n\n"
+      +"경북과 강원을 지나왔어요. 산이 참 많았지요?\n\n"
+      +"태백산맥이 등뼈처럼 솟아 있어요.\n"
+      +"그래서 동해 쪽은 좁고 가파르고, 서쪽은 넓게 퍼져요.\n"
+      +"강물도 대부분 서쪽으로 흐르고요.\n\n"
+      +"그런데 경주는 왜 하필 그 자리였을까요?\n\n"
+      +"산이 둘러싸서 지키기 좋았고,\n"
+      +"들이 있어서 먹고살 수 있었기 때문이에요.\n"
+      +"천 년 도읍은 그렇게 생겨났어요.\n\n"
+      +"사람들은 늘 그런 자리를 골랐어요.\n"
+      +"지킬 수 있고, 먹을 수 있는 곳.\n\n"
+      +"다음에 어떤 도시를 만나면 한번 물어보세요.\n"
+      +"'여기는 왜 하필 여기에 생겼을까?'",
+
+    "read:4":"가운데 땅을 모두 채웠어요! 🎉\n\n"
+      +"충청도와 대전, 세종을 지나왔어요.\n\n"
+      +"이 땅에는 별명이 있어요. '나라의 한가운데'.\n\n"
+      +"그래서 대전에서 철도가 갈라지고,\n"
+      +"정부 청사가 세종으로 왔고,\n"
+      +"연구소들이 대덕에 모였어요.\n\n"
+      +"백제도 여기에 도읍을 두었지요. 공주와 부여, 두 번이나요.\n\n"
+      +"가운데라는 건 무슨 뜻일까요?\n"
+      +"어디로든 갈 수 있다는 뜻이에요.\n\n"
+      +"사람도 비슷해요.\n"
+      +"한 가지만 잘하는 것보다 여러 갈래로 뻗을 수 있는 사람이\n"
+      +"결국 멀리 가거든요.\n\n"
+      +"글을 읽는 힘이 바로 그런 힘이에요.",
+
+    "read:5":"경기 땅을 모두 채웠어요! 🎉\n\n"
+      +"서울을 빙 둘러싼 땅을 다 밟았어요.\n\n"
+      +"수원 화성, 남한산성, 행주산성.\n"
+      +"성이 유난히 많았던 것 눈치챘나요?\n\n"
+      +"서울로 들어오려면 반드시 이 땅을 지나야 했거든요.\n"
+      +"그래서 길목마다 성을 쌓고 군사를 두었어요.\n\n"
+      +"수원 화성을 지을 때 이야기가 재미있어요.\n"
+      +"돌이 너무 무거워 사람 힘으로는 들 수가 없었대요.\n"
+      +"그때 정약용이 거중기라는 기계를 만들었어요.\n"
+      +"덕분에 십 년 걸릴 공사를 이 년 반에 끝냈지요.\n\n"
+      +"막혔을 때 포기하는 대신 새 방법을 찾은 거예요.\n\n"
+      +"어려운 글을 만났을 때도 그렇게 하면 돼요.",
+
+    "read:6":"우리나라를 모두 채웠어요! 🎉🎉🎉\n\n"
+      +"250칸. 제주에서 서울까지 다 밟았어요.\n\n"
+      +"250번 읽는 동안 머릿속에 무엇이 생겼을까요?\n"
+      +"지명 250개가 아니에요. 지도 한 장이에요.\n\n"
+      +"낱낱으로 외운 것과 지도로 아는 건 완전히 달라요.\n"
+      +"외운 건 잊히지만 지도는 남거든요.\n"
+      +"한 번 그려지면 새로 듣는 것도 그 위에 얹히니까요.\n\n"
+      +"이제 '보성' 하면 차밭이,\n"
+      +"'울산' 하면 조선소가 같이 떠오를 거예요.\n"
+      +"뉴스에서 어떤 지명이 나와도 위치가 잡히고요.\n\n"
+      +"그리고 이 땅들에서 같은 이치를 여러 번 봤어요.\n"
+      +"바닷가엔 항구와 공장이 서고,\n"
+      +"산으로 둘러싸인 분지엔 도읍이 서고,\n"
+      +"강이 실어 온 흙에는 넓은 들이 생겨요.\n\n"
+      +"이건 우리나라에서만 통하는 게 아니에요.\n"
+      +"세계 어디를 봐도 똑같아요.\n\n"
+      +"그래서 다음이 📗 국어독해예요.\n"
+      +"960칸, 세계 여덟 곳이 들어 있어요.\n\n"
+      +"여기서 익힌 눈을 그대로 쓰면 돼요.\n"
+      +"'왜 여기에 이게 있을까?'\n"
+      +"이 질문 하나면 세계도 읽혀요.\n\n"
+      +"내 서재에서 📗 국어독해를 열어 보세요.\n"
+      +"250칸을 채운 방법 그대로, 하루에 한 칸이면 충분해요.\n\n"
+      +"그전에 오늘은 마음껏 뿌듯해하세요.\n"
+      +"250번을 해낸 사람은 흔하지 않아요.\n\n"
+      +"우리나라를 다 얻었어요. 정말 대단해요! 🎉\n"
+      +"축하해요!",
+
+    "kor:1":"아시아와 오세아니아를 모두 채웠어요! 🎉\n\n"
+      +"가장 가까운 이웃부터 시작했지요.\n"
+      +"일본, 중국, 동남아, 그리고 호주까지요.\n\n"
+      +"가까운 나라일수록 닮은 게 많았어요.\n"
+      +"한자를 함께 쓰고, 젓가락을 쓰고, 쌀을 먹지요.\n\n"
+      +"그런데 다른 것도 많았어요.\n"
+      +"호주는 우리와 계절이 정반대고,\n"
+      +"인도네시아에는 섬이 1만 7천 개나 있어요.\n\n"
+      +"닮은 점을 보면 가까워지고,\n"
+      +"다른 점을 보면 배우게 돼요.\n\n"
+      +"120칸을 읽으며 두 가지를 다 했어요.\n"
+      +"이제 훨씬 먼 곳으로 떠날 준비가 됐어요.",
+
+    "kor:2":"남아시아와 중동을 모두 채웠어요! 🎉\n\n"
+      +"인류 문명이 처음 시작된 땅을 지나왔어요.\n\n"
+      +"메소포타미아에서 글자가 처음 만들어졌지요.\n"
+      +"무엇을 적으려고 만들었는지 기억나세요?\n\n"
+      +"시도 이야기도 아니었어요.\n"
+      +"'창고에 곡식 몇 자루'였지요.\n\n"
+      +"우리가 쓰는 숫자도 인도에서 왔고,\n"
+      +"0이라는 생각도 거기서 태어났어요.\n\n"
+      +"그때 누군가 적어 두지 않았다면\n"
+      +"그 생각들은 전부 사라졌을 거예요.\n\n"
+      +"읽고 쓴다는 건 그런 일이에요.\n"
+      +"오천 년 전 사람의 생각이 오늘 나에게 오는 것.\n\n"
+      +"지금 하고 있는 게 바로 그거예요.",
+
+    "kor:3":"서유럽과 남유럽을 모두 채웠어요! 🎉\n\n"
+      +"그리스와 로마, 유럽의 뿌리를 지나왔어요.\n\n"
+      +"이 땅 사람들이 남긴 게 참 많지요.\n"
+      +"올림픽, 민주주의, 알파벳, 수학까지요.\n\n"
+      +"그런데 그들도 처음부터 알았던 건 아니에요.\n\n"
+      +"'왜 그럴까?'\n"
+      +"이 한마디를 멈추지 않은 사람들이 있었어요.\n"
+      +"묻고, 따지고, 적어 두면서 조금씩 알아냈지요.\n\n"
+      +"그 물음이 이천 년을 건너 오늘까지 왔어요.\n"
+      +"학교에서 배우는 것 중 많은 게 거기서 시작됐고요.\n\n"
+      +"카드를 읽으며 '왜?'를 참 많이 만났지요?\n"
+      +"그 물음이 바로 공부의 시작이에요.",
+
+    "kor:4":"북유럽과 동유럽을 모두 채웠어요! 🎉\n\n"
+      +"눈과 숲의 나라들, 그리고 되찾은 나라들을 지나왔어요.\n\n"
+      +"폴란드는 123년 동안 지도에서 사라졌었어요.\n"
+      +"발트 3국 사람들은 노래를 부르며 자유를 되찾았고요.\n\n"
+      +"우리도 나라를 잃었던 적이 있지요.\n\n"
+      +"나라가 사라져도 사라지지 않는 게 있어요.\n"
+      +"말과 글, 그리고 노래예요.\n\n"
+      +"그것만 지키면 언젠가 다시 일어설 수 있거든요.\n"
+      +"실제로 그렇게 됐고요.\n\n"
+      +"우리가 한글을 목숨 걸고 지킨 것도 같은 이유예요.\n\n"
+      +"글을 읽고 지키는 일이 왜 중요한지,\n"
+      +"이 세계가 조용히 알려 주었어요.",
+
+    "kor:5":"아프리카를 모두 채웠어요! 🎉\n\n"
+      +"인류가 처음 걸어 나온 대륙을 지나왔어요.\n\n"
+      +"이 세계를 시작할 때 어떤 생각을 했나요?\n"
+      +"혹시 '덥고 가난한 곳'이라고 생각하지 않았나요?\n\n"
+      +"그런데 읽어 보니 달랐지요.\n"
+      +"적도 아래인데 만년설 덮인 산이 있고,\n"
+      +"스키장도 있고, 54개나 되는 나라가 있어요.\n\n"
+      +"우리 휴대폰 속 광물도 여기서 오고,\n"
+      +"커피도 이 땅에서 처음 발견됐어요.\n\n"
+      +"잘 모르면 뭉뚱그려 하나로 보게 돼요.\n"
+      +"알고 나면 하나하나 다르게 보이고요.\n\n"
+      +"120칸을 읽으며 그 눈을 얻었어요.\n"
+      +"이게 읽기가 주는 가장 큰 선물이에요.",
+
+    "kor:6":"북아메리카를 모두 채웠어요! 🎉\n\n"
+      +"캐나다와 미국, 멕시코와 카리브해를 지나왔어요.\n\n"
+      +"이 땅에서 온 것들을 한번 세어 볼까요?\n"
+      +"옥수수, 감자, 토마토, 고추, 초콜릿.\n\n"
+      +"고추가 없었다면 김치는 지금 모습이 아니었어요.\n"
+      +"감자가 유럽에 가지 않았다면\n"
+      +"그곳 사람들은 훨씬 오래 배고팠을 거고요.\n\n"
+      +"먹을거리 하나가 세상을 바꿨어요.\n\n"
+      +"그런데 그 땅에 먼저 살던 사람들은\n"
+      +"땅도 삶도 잃었지요.\n\n"
+      +"좋은 일과 아픈 일이 나란히 있는 게 역사예요.\n"
+      +"둘 다 볼 줄 알아야 제대로 아는 거고요.\n\n"
+      +"그걸 배운 세계였어요.",
+
+    "kor:7":"남아메리카를 모두 채웠어요! 🎉\n\n"
+      +"아마존과 안데스의 대륙을 지나왔어요.\n\n"
+      +"잉카 사람들에게는 문자가 없었어요.\n"
+      +"그래서 어떻게 기록했는지 기억나세요?\n"
+      +"끈에 매듭을 묶었지요.\n\n"
+      +"바퀴도 없이 100톤 넘는 돌을 옮겨\n"
+      +"칼날도 안 들어가게 성을 쌓았고요.\n\n"
+      +"우리와 방법은 전혀 달랐지만\n"
+      +"'남기고 싶다', '만들고 싶다'는 마음은 똑같았어요.\n\n"
+      +"그리고 아마존은 지금도 지구의 숨을 만들어요.\n"
+      +"우리가 사는 데도 그 숲이 필요하지요.\n\n"
+      +"멀리 있는 것 같아도 다 이어져 있어요.\n"
+      +"120칸을 읽으며 그 연결을 보았어요.",
+
+    "kor:8":"세계를 모두 채웠어요! 🎉🎉🎉\n\n"
+      +"960칸. 지구를 한 바퀴 돌았어요.\n\n"
+      +"이제 이런 게 그냥 보이지요?\n"
+      +"지구가 기울어 돌기 때문에 계절이 생기고,\n"
+      +"판이 부딪혀 산이 솟고 지진이 나고,\n"
+      +"적도에서 오른 공기가 내려앉아 사막이 된다는 것을요.\n\n"
+      +"처음엔 낱낱의 이야기였을 거예요.\n"
+      +"그런데 지금은 이어지지 않나요?\n\n"
+      +"한라산에서 배운 '높으면 추워진다'가\n"
+      +"킬리만자로에서 다시 나오고,\n"
+      +"판 이야기가 히말라야와 안데스와 일본을 함께 설명하고,\n"
+      +"계절풍이 태국의 벼농사와 우리 장마를 같이 풀어 줘요.\n\n"
+      +"그게 진짜 아는 거예요.\n"
+      +"조각조각 외운 게 아니라, 이유로 이어 놓은 것.\n\n"
+      +"이렇게 알면 잘 안 잊혀요.\n"
+      +"하나를 잊어도 옆의 것에서 다시 떠오르거든요.\n\n"
+      +"그리고 960번 읽는 동안 다른 것도 늘었어요.\n\n"
+      +"긴 글을 끝까지 읽는 힘,\n"
+      +"모르는 낱말을 앞뒤로 짐작하는 힘,\n"
+      +"'그래서 결국 무슨 말이지?'를 잡아내는 힘.\n\n"
+      +"이건 국어에서만 쓰이지 않아요.\n"
+      +"수학 문제도 글이고, 과학책도 글이에요.\n"
+      +"어른이 되어 읽을 계약서와 기사도 마찬가지고요.\n\n"
+      +"글이 편한 사람은 무엇이든 스스로 배울 수 있어요.\n"
+      +"선생님이 없어도, 학원에 가지 않아도요.\n\n"
+      +"960번 앉아서 그 힘을 얻었어요.\n"
+      +"이 지도는 머릿속에 들어왔으니 사라지지 않아요.\n\n"
+      +"오늘은 마음껏 뿌듯해하세요.\n"
+      +"960번을 끝까지 해낸 사람이에요.\n"
+      +"이건 어른도 쉽게 못 하는 일이에요.\n\n"
+      +"세계를 통째로 얻었어요. 정말, 정말 대단해요! 🎉\n"
+      +"진심으로 축하해요!"
+  };
+
+  var MILE=[
+    {id:"first", test:function(n){ return n>=1; },
+     txt:"첫 땅을 얻었어요! 🎉\n\n"
+       +"오늘 무슨 일을 했는지 아세요?\n"
+       +"글 하나를 끝까지 읽었어요.\n\n"
+       +"별거 아닌 것 같지요? 그런데 어른들도 그걸 잘 못 해요.\n"
+       +"몇 줄 읽다가 휴대폰을 보고, 다시 읽다가 딴생각을 하거든요.\n\n"
+       +"그런데 오늘 그걸 해냈어요.\n"
+       +"그래서 지도에 불이 하나 켜진 거예요.\n\n"
+       +"이 지도는 읽은 만큼만 밝아져요.\n"
+       +"아무도 대신 켜 줄 수 없어요. 오직 나만 켤 수 있어요.\n\n"
+       +"내일 또 한 칸. 그거면 충분해요."},
+
+    {id:"n10", test:function(n){ return n>=10; },
+     txt:"열 칸을 채웠어요! 👏\n\n"
+       +"열 칸이라는 건 글을 열 번 읽었다는 뜻이에요.\n"
+       +"열 번이면 무엇이 달라질까요?\n\n"
+       +"처음 읽던 날을 떠올려 보세요.\n"
+       +"글자가 눈에서 자꾸 미끄러지지 않았나요?\n"
+       +"'무슨 말이지?' 하고 앞으로 되돌아가지 않았나요?\n\n"
+       +"지금은 조금 덜하지요? 그게 바로 늘어난 거예요.\n\n"
+       +"읽기는 신기해요. 눈에 안 보이게 늘거든요.\n"
+       +"어제와 오늘은 똑같아 보이는데,\n"
+       +"열흘 전과 오늘은 확실히 달라요.\n\n"
+       +"그러니 오늘도 한 칸. 지금이 가장 잘 느는 때예요."},
+
+    {id:"n30", test:function(n){ return n>=30; },
+     txt:"서른 칸! 지도가 제법 밝아졌어요. 🌟\n\n"
+       +"지도를 한번 쭉 보세요.\n"
+       +"저 땅들은 한 번에 얻은 게 아니에요.\n"
+       +"하루에 하나씩, 서른 번 앉아서 얻은 거예요.\n\n"
+       +"세상에서 가장 어려운 게 무엇인지 아세요?\n"
+       +"큰 걸 한 번 하는 게 아니라,\n"
+       +"작은 걸 여러 번 하는 거예요.\n\n"
+       +"운동선수도, 피아니스트도, 작가도 모두 그래요.\n"
+       +"매일 조금씩 한 사람이 결국 멀리 가요.\n"
+       +"한꺼번에 몰아서 한 사람은 금방 지쳐 그만두거든요.\n\n"
+       +"지금 그 어려운 일을 해내고 있어요.\n"
+       +"서른 번이나요."},
+
+    {id:"n50", test:function(n){ return n>=50; },
+     txt:"쉰 칸을 채웠어요. 정말 대단해요! 🏆\n\n"
+       +"쉰 번 읽는 동안 머릿속에서 무슨 일이 있었을까요?\n\n"
+       +"글을 읽을 때 우리 뇌는 아주 바빠요.\n"
+       +"글자를 소리로 바꾸고, 뜻을 찾고, 앞 문장과 이어 붙이고,\n"
+       +"'그래서 결국 무슨 말이지?' 하고 정리까지 해요.\n"
+       +"이걸 1초 안에 몇 번씩 해내야 하지요.\n\n"
+       +"그런데 이건 연습할수록 빨라져요. 근육처럼요.\n"
+       +"쉰 번 연습한 뇌는 처음과 완전히 다른 뇌예요.\n\n"
+       +"어려운 글을 만나도 예전만큼 무섭지 않지요?\n"
+       +"그게 쉰 번 만에 얻은 힘이에요.\n\n"
+       +"이 힘은 국어에서만 쓰이는 게 아니에요.\n"
+       +"수학 문제를 읽을 때도, 과학책을 볼 때도 함께 따라와요."},
+
+    {id:"n100", test:function(n){ return n>=100; },
+     txt:"백 칸! 🎊 백 번을 읽었다는 뜻이에요.\n\n"
+       +"이쯤 되면 이런 생각이 들 거예요.\n"
+       +"'어? 요즘엔 글 읽는 게 별로 안 힘드네?'\n\n"
+       +"맞아요. 그게 가장 큰 선물이에요.\n\n"
+       +"글 읽기가 힘든 사람은 공부가 모두 힘들어요.\n"
+       +"문제를 읽어도 무슨 말인지 모르니까,\n"
+       +"수학도 과학도 사회도 다 어려워지거든요.\n\n"
+       +"반대로 글이 편해지면 모두 편해져요.\n"
+       +"교과서가 읽히고, 문제가 보이고, 책이 재미있어져요.\n\n"
+       +"지금 그 문을 연 거예요.\n"
+       +"백 번 앉아서, 스스로요.\n\n"
+       +"이제부터가 진짜 재미있어질 거예요."},
+
+    {id:"world", test:function(n,st,tot){ return tot && n>=tot; },
+     txt:"이 세계를 모두 채웠어요! 🎉🎉\n\n"
+       +"처음 이 지도를 열었을 때가 기억나세요?\n"
+       +"온통 깜깜했지요. 언제 다 채우나 싶었을 거예요.\n\n"
+       +"그런데 지금 보세요. 전부 내 땅이에요.\n\n"
+       +"어떻게 다 채웠을까요?\n"
+       +"한 번에 채운 게 아니에요. 한 칸씩 채운 거예요.\n"
+       +"그날그날은 아주 조금이었는데,\n"
+       +"그게 쌓이니 온 땅이 됐어요.\n\n"
+       +"이게 세상 모든 큰일의 비밀이에요.\n"
+       +"큰 건물도 벽돌 하나부터,\n"
+       +"두꺼운 책도 첫 줄부터 시작해요.\n\n"
+       +"그걸 직접 해봤으니 이제 알지요?\n"
+       +"다음 세계도 똑같이 하면 돼요."},
+
+    {id:"streak7", test:function(n,st){ return (st.streak||0)>=7; },
+     txt:"이레 동안 하루도 빠지지 않았어요! 🔥\n\n"
+       +"솔직히 말할게요. 이건 정말 어려운 일이에요.\n\n"
+       +"어른들도 '내일부터 매일 운동해야지' 하고\n"
+       +"사흘 만에 그만두는 사람이 훨씬 많아요.\n"
+       +"'오늘은 피곤하니까', '내일 두 배로 하지 뭐' 하면서요.\n\n"
+       +"그런데 이레 동안 그 말을 이겨 냈어요.\n"
+       +"하기 싫은 날도 있었을 텐데, 그날도 앉았지요.\n\n"
+       +"사실 '하고 싶은 날'에 하는 건 누구나 할 수 있어요.\n"
+       +"'하기 싫은 날'에도 하는 사람이 결국 잘하게 돼요.\n\n"
+       +"이미 그런 사람이 되었어요."},
+
+    {id:"streak30", test:function(n,st){ return (st.streak||0)>=30; },
+     txt:"서른 날 연속! 이건 이제 습관이에요. ⭐\n\n"
+       +"습관이 무엇인지 아세요?\n"
+       +"'해야지' 하고 마음먹지 않아도 몸이 먼저 움직이는 거예요.\n\n"
+       +"양치질할 때 '자, 이제 이를 닦아야지' 하고\n"
+       +"결심하지 않지요. 그냥 하게 되고요.\n"
+       +"읽기도 그렇게 되어 가고 있어요.\n\n"
+       +"서른 날이면 그렇게 돼요. 뇌가 길을 새로 내거든요.\n"
+       +"처음엔 풀숲을 헤치며 가야 했는데,\n"
+       +"자꾸 다니니 길이 나서 이제는 쉽게 걸어가는 거예요.\n\n"
+       +"이 길은 평생 남아요.\n"
+       +"중학교에 가서도, 어른이 되어서도 도와줄 거예요.\n\n"
+       +"서른 날 동안 스스로 만든 길이에요. 정말 멋져요."}
+  ];
+  function checkMilestone(){
+    if(!state) return;
+    if(!DB.mile) DB.mile={};
+    var n=state.claimed.length;
+    /* 세계를 다 채운 날은 그 편지를 먼저 보내요 */
+    var order=MILE.slice();
+    order.sort(function(a,b){
+      return (b.id==="world"?1:0)-(a.id==="world"?1:0);
+    });
+    for(var i=0;i<order.length;i++){
+      var m=order[i];
+      var key=DB.cur+"|"+m.id;
+      if(DB.mile[key]) continue;
+      var hit=false;
+      try{ hit=m.test(n, state, TOTAL); }catch(e){}
+      if(!hit) continue;
+      DB.mile[key]=today();
+      var body=m.txt;
+      if(m.id==="world"){
+        if(WORLD_LETTER[DB.cur]) body=WORLD_LETTER[DB.cur];
+        /* 세계를 다 채운 날엔 칸 수 축하는 겹치니 함께 지나갑니다 */
+        MILE.forEach(function(x){
+          if(x.id!=="world" && x.id.charAt(0)==="n"){
+            var hit2=false;
+            try{ hit2=x.test(n, state, TOTAL); }catch(e){}
+            if(hit2) DB.mile[DB.cur+"|"+x.id]=today();
+          }
+        });
+      }
+      allLetters().push({date:today(), text:body, open:"now", w:DB.cur, total:TOTAL,
+                         read:false, who:"땅따먹기", tell:true, auto:true});
+      persist();
+      return true;      /* 한 번에 하나만 */
+    }
+    return false;
+  }
+
+  function addReplyUI(el, l, w){
+    if(l.auto) return;            /* 축하 편지에는 답장을 안 써요 */
+    if(l.reply){
+      var r=document.createElement("div");
+      r.className="mreplytxt";
+      r.innerHTML='<b>내가 쓴 답장</b>'+esc(l.reply);
+      el.appendChild(r);
+      return;
+    }
+    var b=document.createElement("button");
+    b.className="mreplybtn"; b.textContent="💗 답장 쓸래요";
+    b.onclick=function(){ openReply(l); };
+    el.appendChild(b);
+  }
+  function openReply(l){
+    rpTarget=l;
+    var w=whoOf(l);
+    document.getElementById("rpWho").textContent=w.e+" "+w.name+"에게";
+    document.getElementById("rpText").value=l.reply||"";
+    var q=document.getElementById("rpQuick"); q.innerHTML="";
+    RQ.forEach(function(t){
+      var b=document.createElement("button");
+      b.type="button"; b.textContent=t;
+      b.onclick=function(){
+        var ta=document.getElementById("rpText");
+        ta.value=(ta.value?ta.value+" ":"")+t;
+      };
+      q.appendChild(b);
+    });
+    navOpen(document.getElementById("replyVeil"));
+  }
+
+  function showFly(l){
+    var w=whoOf(l);
+    document.getElementById("flyEnv").textContent="💌";
+    document.getElementById("flyFrom").textContent=w.e+" "+w.name+"에게서 편지가 왔어요";
+    document.getElementById("flySub").textContent="지금 열어 볼 수 있어요";
+    var v=document.getElementById("flyVeil");
+    v.classList.add("on");
+    beep([523,659,784,1047],0.3);
+    document.getElementById("flyOpen").onclick=function(){
+      v.classList.remove("on");
+      setTimeout(openMail,240);
+    };
+    document.getElementById("flyLater").onclick=function(){
+      v.classList.remove("on");
+      info.innerHTML="<b>💌 편지함에 넣어 두었어요</b> · 보고 싶을 때 열어 보세요";
+      setTimeout(refreshMailBadge,80);
+    };
+  }
+
   function allLetters(){ if(!Array.isArray(DB.letters)) DB.letters=[]; return DB.letters; }
   function isOpen(l){
     if(l.open==="now") return true;
@@ -3554,14 +4140,41 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
         var d=document.createElement("div");
         d.className="mletter"+(op?"":" sealed")+((op&&!l.read)?" newmail":"");
         if(op){
-          d.innerHTML='<div class="mdt">'+fmtDay(l.date)+'</div>'
-            +'<p>'+esc(l.text)+'</p><div class="mfrom">— 엄마·아빠가</div>';
-          l.read=true;
+          var w2=whoOf(l);
+          if(!l.read){
+            /* 아직 안 뜯은 편지 — 눌러서 열어요 */
+            d.className="mletter unread";
+            d.innerHTML='<div class="unenv">✉️</div>'
+              +'<div class="unfrom">'+w2.e+' '+esc(w2.name)+'에게서</div>'
+              +'<div class="unhint">눌러서 열어 보세요</div>';
+            (function(le,el,who){
+              el.onclick=function(){
+                le.read=true; persist();
+                el.className="mletter newmail";
+                el.innerHTML='<div class="mfrom2">'+who.e+' '+esc(who.name)+'에게서</div>'
+                  +'<div class="mdt">'+fmtDay(le.date)+'</div>'
+                  +'<p>'+esc(le.text)+'</p><div class="mfrom">— '+esc(who.name)+'가</div>';
+                addReplyUI(el, le, who);
+                beep([523,659,784],0.24);
+                setTimeout(refreshMailBadge,80);
+              };
+            })(l,d,w2);
+            box.appendChild(d);
+            return;
+          }
+          d.innerHTML='<div class="mfrom2">'+w2.e+' '+esc(w2.name)+'에게서</div>'
+            +'<div class="mdt">'+fmtDay(l.date)+'</div>'
+            +'<p>'+esc(l.text)+'</p><div class="mfrom">— '+esc(w2.name)+'가</div>';
+          addReplyUI(d, l, w2);
         } else {
+          var w3=whoOf(l);
           var need = l.open==="all" ? "이 세계를 다 채우면"
                    : (l.open==="date" ? (fmtDay(l.openDate)+"에") : (l.open+"칸을 채우면"));
-          d.innerHTML='<div class="mseal">🔒</div><div class="mdt">'+fmtDay(l.date)+'</div>'
-            +'<p>'+esc(need)+' 열리는 편지예요.</p>';
+          d.innerHTML='<div class="mseal">🔒</div>'
+            + (l.tell===false
+                ? '<p>아직 열 수 없는 편지가 있어요.</p>'
+                : ('<div class="mfrom2">'+w3.e+' '+esc(w3.name)+'에게서</div>'
+                   +'<p>'+esc(need)+' 열려요.</p>'));
         }
         box.appendChild(d);
       });
@@ -3597,10 +4210,23 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     document.getElementById("wText").value="";
     document.getElementById("wOpen").value="now";
     document.getElementById("wWarn").textContent="";
+    document.getElementById("wWhoEtc").value="";
+    wWhoPick="엄마"; wTellPick=1; buildWho();
     navOpen(writeVeil);
   });
   document.getElementById("wOpen").addEventListener("change",function(){
     document.getElementById("wDateBox").style.display = (this.value==="date") ? "" : "none";
+  });
+  document.getElementById("rpCancel").addEventListener("click",navBack);
+  document.getElementById("rpSave").addEventListener("click",function(){
+    var t=(document.getElementById("rpText").value||"").trim();
+    if(!t){ navBack(); return; }
+    if(rpTarget){ rpTarget.reply=t; rpTarget.replyDate=today(); persist(); }
+    navBack();
+    setTimeout(function(){
+      openMail();
+      beep([659,880,1047],0.26);
+    },320);
   });
   document.getElementById("wCancel").addEventListener("click",navBack);
   document.getElementById("wSave").addEventListener("click",function(){
@@ -3609,12 +4235,25 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     var op=document.getElementById("wOpen").value;
     var od=document.getElementById("wDate").value;
     if(op==="date" && !od){ document.getElementById("wWarn").textContent="열릴 날짜를 골라 주세요."; return; }
+    var who=wWhoPick;
+    if(who==="직접 적기"){
+      who=(document.getElementById("wWhoEtc").value||"").trim();
+      if(!who){ document.getElementById("wWarn").textContent="누가 보내는지 적어 주세요."; return; }
+    }
     allLetters().push({date:today(), text:t, open:op, openDate:(op==="date"?od:""),
-                       w:DB.cur, total:TOTAL, read:false});
+                       w:DB.cur, total:TOTAL, read:false,
+                       who:who, tell:(wTellPick===1)});
     persist(); navBack();
     setTimeout(function(){
       refreshMailBadge();
-      info.innerHTML="<b>💌 편지를 넣어 두었어요</b> · 아이가 편지함에서 볼 수 있어요";
+      if(wTellPick===1){
+        info.innerHTML="<b>💌 "+esc(who)+"의 편지를 넣어 두었어요</b> · 아이가 언제 열리는지 볼 수 있어요";
+      } else {
+        /* 몰래 두기 — 화면에 자국을 남기지 않아요 */
+        info.innerHTML="";
+        setTimeout(function(){ info.innerHTML="내 땅을 누르면 설명을 다시 볼 수 있어요."; },1200);
+      }
+      checkLetterFly();
     },350);
   });
 
@@ -4585,8 +5224,9 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     }
     setTimeout(function(){
       refreshMailBadge();
-      if(unreadCount()>0) info.innerHTML="<b>💌 새 편지가 도착했어요!</b> 편지함을 열어 보세요";
-    },900);
+      checkMilestone();          /* 특별한 날이면 축하 편지를 넣어요 */
+      checkLetterFly();          /* 새로 열린 편지가 있으면 봉투가 날아와요 */
+    },1200);
   }
 
   /* 검증 창 열기 */
@@ -4767,6 +5407,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   }
   else if(state && !state.field) setTimeout(askField,400);
   else if(state && !DB.asked && useHome() && !isFirstTime()) setTimeout(askHome,400);
+  setTimeout(checkLetterFly, 1500);      /* 켤 때 새 편지가 왔는지 봐요 */
   if(DB.migrated||DB.upgraded){ setTimeout(function(){
     info.innerHTML="<b>이전 기록을 안전하게 옮겼어요</b>"; },900); }
   if(!DB.pinned && !isInstalled()){
