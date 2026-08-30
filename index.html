@@ -400,6 +400,27 @@ h1 .vol{color:var(--lamp)}
   color:var(--night);background:var(--lamp);border-radius:99px;padding:5px 12px;margin-bottom:12px}
 .panel > button{width:100%;border:0;border-radius:14px;padding:14px;font-family:var(--sans);
   font-size:15px;font-weight:700;color:var(--night);background:var(--dawn);cursor:pointer}
+/* 내 서재 — 훈련 개수에 맞춰 저절로 자리가 잡혀요 */
+.libgrid{display:grid;gap:9px;margin-bottom:16px;max-height:52vh;overflow-y:auto;
+  grid-template-columns:1fr}
+.libgrid button{width:100%;text-align:left;display:flex;flex-direction:column;
+  gap:5px;padding:16px 16px;border-radius:15px;
+  background:#12293D;border:1px solid #24405A;cursor:pointer}
+.libgrid button:active{transform:translateY(1px)}
+.libgrid button.cur{border-color:var(--lamp);background:#173247}
+.libgrid button b{font-family:var(--serif);font-size:17px;color:var(--paper);font-weight:600}
+.libgrid button.cur b{color:var(--lamp)}
+.libgrid button small{font-family:var(--mono);font-size:12px;color:var(--dim)}
+/* 셋 이상이면 두 줄로 */
+.libgrid.many{grid-template-columns:1fr 1fr}
+.libgrid.many button{padding:14px 13px}
+.libgrid.many button b{font-size:15.5px}
+@media (max-width:359px){ .libgrid.many{grid-template-columns:1fr} }
+@media (min-width:700px){
+  .libgrid{grid-template-columns:1fr 1fr}
+  .libgrid.one{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}
+  .libgrid.many{grid-template-columns:1fr 1fr}
+}
 .pick{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:16px;max-height:46vh;overflow-y:auto}
 .pick button{width:auto;padding:9px 4px;font-size:12px;font-weight:500;border-radius:10px;
   background:#12293D;border:1px solid #24405A;color:var(--paper)}
@@ -611,10 +632,14 @@ textarea.ckin{resize:none;line-height:1.5}
   border-radius:12px;color:var(--dim);font-family:var(--sans);font-size:12.5px;
   padding:10px;cursor:pointer}
 .tellquiz.on{border-style:solid;border-color:var(--lamp);color:var(--lamp)}
-.tellnow{width:100%;margin-top:8px;background:linear-gradient(180deg,var(--lamp),#C8862B);
-  border:none;border-radius:12px;color:var(--night);
-  font-family:var(--sans);font-size:14px;font-weight:800;padding:13px;cursor:pointer}
-.tellnow:active{transform:translateY(1px)}
+.tellnow{width:100%;margin-top:10px;background:linear-gradient(180deg,var(--lamp),#C8862B);
+  border:none;border-radius:14px;color:var(--night);
+  font-family:var(--sans);font-size:15.5px;font-weight:800;padding:16px;cursor:pointer;
+  box-shadow:0 6px 18px -8px rgba(255,194,75,.75)}
+.tellnow:active{transform:translateY(2px)}
+/* 카드를 다시 볼 때의 닫기는 조용하게 */
+.panel > button.ivquiet{background:transparent !important;color:var(--dim) !important;
+  font-weight:400 !important;font-size:13px !important}
 #qzVeil{z-index:62}
 .qzpanel{max-width:420px}
 .qzpanel h3{font-size:20px;line-height:1.55;margin:6px 0;white-space:pre-line}
@@ -1198,7 +1223,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <div class="chips" id="chips"></div>
   </section>
 
-  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-03-p</p>
+  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-03-s</p>
   </div>
 
   <div class="goalcard" id="goalBox"></div>
@@ -1537,7 +1562,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <div class="tb">스터디포스</div>
     <h3>내 서재</h3>
     <p class="dexhint">훈련마다 지도가 따로예요. 진도도 각각 저장돼요.</p>
-    <div class="pick" id="libList"></div>
+    <div class="libgrid" id="libList"></div>
     <button id="libClose" class="skip">닫기</button>
   </div>
 </div>
@@ -2532,6 +2557,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     var box=document.getElementById("libList"); box.innerHTML="";
     COURSE_ORDER.forEach(function(c){
       var co=COURSES[c], ks=Object.keys(co.worlds);
+      if(!ks.length) return;          /* 아직 없는 훈련은 보여 주지 않아요 */
       var done=0,tot=0;
       ks.forEach(function(k){ done+=ensureWorld(DB,wkey(c,k)).claimed.length; tot+=co.worlds[k].tiles.length; });
       var b=document.createElement("button");
@@ -2556,6 +2582,9 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       };
       box.appendChild(b);
     });
+    /* 개수에 맞춰 자리를 잡아요 */
+    var cnt=box.children.length;
+    box.className="libgrid"+(cnt===1?" one":(cnt>=3?" many":""));
     navOpen(libVeil);
   }
   document.getElementById("libBtn").addEventListener("click",openLib);
@@ -4351,7 +4380,10 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     var rr=document.getElementById("ivRare");
     if(!review && t.rare){ rr.style.display=""; rr.textContent="⭐".repeat(t.rare); }
     else rr.style.display="none";
-    document.getElementById("ivClose").textContent = review ? "닫기" : "내 것으로 만들기";
+    var ivc=document.getElementById("ivClose");
+    ivc.textContent = review ? "닫기" : "내 것으로 만들기";
+    /* 다시 볼 때는 닫기를 조용하게 — 퀴즈 버튼이 더 눈에 띄게 */
+    ivc.className = review ? "ivquiet" : "";
     document.getElementById("ivName").textContent = t.full;
     document.getElementById("ivDesc").textContent = t.desc || "";
 
