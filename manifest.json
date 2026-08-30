@@ -1,7 +1,7 @@
 {
-  "name": "스터디포스 땅따먹기",
+  "name": "마더클럽 땅따먹기",
   "short_name": "땅따먹기",
-  "description": "하루 한 칸, 세상에 불을 켜요. 우리 고장에서 시작해 세계로, 그리고 우주까지.",
+  "description": "훈련한 만큼 내 땅이 됩니다. 해낼 때마다 우리 고장 한 곳에 불이 켜져요.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
