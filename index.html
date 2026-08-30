@@ -66,6 +66,8 @@ h1 .vol{color:var(--lamp)}
 .count{font-family:var(--mono);font-size:13px}
 .count b{color:var(--lamp);font-weight:500}
 .restnote{color:#7FE3C4;font-size:11px}
+.hello{font-family:var(--serif);font-size:15px;color:var(--lamp);
+  text-align:center;margin:0 0 6px}
 .streak{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 16px}
 .streak b{color:var(--lamp-soft);font-weight:500}
 
@@ -170,6 +172,14 @@ h1 .vol{color:var(--lamp)}
   font-family:var(--sans);font-size:20px;font-weight:800;
   padding:19px;cursor:pointer;box-shadow:0 8px 24px -8px rgba(255,194,75,.8)}
 .wcBtn:active{transform:translateY(2px)}
+.wcName{width:100%;max-width:340px;margin:6px 0 14px;text-align:center}
+.wcName label{display:block;font-family:var(--sans);font-size:13.5px;
+  color:var(--dawn);margin-bottom:8px}
+.wcName input{width:100%;background:#12293D;border:1px solid #3E6890;border-radius:13px;
+  color:var(--paper);font-family:var(--sans);font-size:17px;font-weight:600;
+  padding:14px;text-align:center}
+.wcName input:focus{outline:none;border-color:var(--lamp)}
+.wcName small{display:block;font-size:11.5px;color:var(--dim);margin-top:7px}
 .wcHow{background:transparent;border:none;color:var(--dim);
   font-family:var(--sans);font-size:13px;cursor:pointer;padding:8px;
   text-decoration:underline;text-underline-offset:3px}
@@ -183,6 +193,13 @@ h1 .vol{color:var(--lamp)}
   font-weight:700;display:flex;align-items:center;justify-content:center}
 .howrow b{font-family:var(--sans);font-size:14.5px;color:var(--paper);display:block}
 .howrow small{font-size:12px;color:var(--dim);line-height:1.55;display:block;margin-top:3px}
+.whybox{background:#12293D;border:1px solid var(--lamp);border-radius:16px;
+  padding:18px 17px;width:100%;max-width:460px;text-align:left}
+.whyline{font-family:var(--serif);font-size:17px;color:var(--lamp);line-height:1.6;margin:0 0 11px}
+.whysub{font-size:13.5px;color:var(--paper);line-height:1.75;margin:0 0 9px}
+.whysub:last-child{margin-bottom:0}
+.hown2{flex:0 0 auto;width:25px;height:25px;display:flex;align-items:center;
+  justify-content:center;font-size:16px}
 .howtip{font-size:12px;color:var(--dim);line-height:1.8;text-align:center;margin:4px 0 0}
 .wcPick{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:440px}
 .wcCard{background:#12293D;border:1px solid #24405A;border-radius:18px;
@@ -640,6 +657,37 @@ textarea.ckin{resize:none;line-height:1.5}
 /* 카드를 다시 볼 때의 닫기는 조용하게 */
 .panel > button.ivquiet{background:transparent !important;color:var(--dim) !important;
   font-weight:400 !important;font-size:13px !important}
+#kidVeil{z-index:71}
+.kidpanel{max-width:400px}
+.kidlist{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+.kidrow{display:flex;align-items:center;gap:11px;background:#12293D;
+  border:1px solid #24405A;border-radius:14px;padding:14px 14px;cursor:pointer;text-align:left}
+.kidrow.cur{border-color:var(--lamp);background:#173247}
+.kidrow:active{transform:translateY(1px)}
+.kide{font-size:22px;line-height:1;flex:0 0 auto}
+.kidmid{flex:1;min-width:0}
+.kidnm{font-family:var(--serif);font-size:16px;color:var(--paper)}
+.kidrow.cur .kidnm{color:var(--lamp)}
+.kidsub{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:3px}
+.kiddel{background:transparent;border:none;color:var(--dim);font-size:15px;
+  cursor:pointer;padding:6px 4px;flex:0 0 auto}
+#movVeil{z-index:61}
+.movpanel{max-width:430px}
+.movtab{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:4px 0 14px}
+.mvt{background:#12293D;border:1px solid #24405A;border-radius:12px;color:var(--dim);
+  font-family:var(--sans);font-size:14px;font-weight:700;padding:11px;cursor:pointer}
+.mvt.on{border-color:var(--lamp);background:#173247;color:var(--lamp)}
+.qrbox{background:#fff;border-radius:14px;padding:12px;display:flex;
+  align-items:center;justify-content:center;margin:12px 0}
+.qrbox canvas,.qrbox svg{width:100%;height:auto;max-width:260px;image-rendering:pixelated}
+.bakwhy{background:#0C1F31;border-radius:13px;padding:14px 15px;margin-bottom:13px;text-align:left}
+.bakwhy p{font-size:13px;color:var(--paper);line-height:1.7;margin:0 0 9px}
+.bakwhy p:last-child{margin-bottom:0}
+.bakwhy b{color:var(--lamp)}
+.bakhint{font-size:11.5px;color:var(--dim);line-height:1.6;margin:11px 0 0;text-align:center}
+.movcode{font-family:var(--mono);font-size:10.5px;color:var(--dim);background:#0C1F31;
+  border-radius:10px;padding:10px;word-break:break-all;line-height:1.6;max-height:88px;
+  overflow-y:auto;margin-bottom:10px;text-align:left}
 #qzVeil{z-index:62}
 .qzpanel{max-width:420px}
 .qzpanel h3{font-size:20px;line-height:1.55;margin:6px 0;white-space:pre-line}
@@ -775,7 +823,12 @@ textarea.ckin{resize:none;line-height:1.5}
 .pguide ol{margin:0;padding-left:19px}
 .pguide li{font-size:13px;color:#C9DAE8;line-height:1.75;margin-bottom:4px}
 .pguide li b{color:var(--lamp-soft)}
-.pguide .pgn{font-size:12px;color:var(--dim);margin:9px 0 0;line-height:1.6}
+.pguide .pgo{font-size:13.5px;color:var(--paper);line-height:1.7;margin:0 0 13px}
+.pinchrome{width:100%;background:linear-gradient(180deg,var(--lamp),#C8862B);border:none;
+  border-radius:14px;color:var(--night);font-family:var(--sans);font-size:16px;font-weight:800;
+  padding:16px;cursor:pointer;box-shadow:0 6px 18px -8px rgba(255,194,75,.8)}
+.pinchrome:active{transform:translateY(2px)}
+.pgn{font-size:12px;color:var(--dim);margin:9px 0 0;line-height:1.6}
 .pinbak{font-size:12.5px !important;color:var(--dim) !important;margin-bottom:14px !important}
 #homeVeil{z-index:59}
 .homepanel{max-width:420px}
@@ -1262,6 +1315,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     </div>
   </div>
 
+  <p class="hello" id="hello" style="display:none"></p>
   <p class="info" id="info">내 땅을 누르면 설명을 다시 볼 수 있어요.</p>
 
   <div class="today">
@@ -1285,7 +1339,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <div class="chips" id="chips"></div>
   </section>
 
-  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-04-d</p>
+  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-04-l</p>
   </div>
 
   <div class="goalcard" id="goalBox"></div>
@@ -1343,7 +1397,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   <div class="panel mompanel">
     <div class="big">👩</div>
     <div class="tb" id="momDate"></div>
-    <h3>오늘의 공부 보고</h3>
+    <h3 id="momTitle">오늘의 공부 보고</h3>
     <div id="momTell" class="momlearn" style="display:none"></div>
     <div id="momLearn" class="momlearn" style="display:none"></div>
     <div id="momBody" class="mombody"></div>
@@ -1463,6 +1517,11 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       </svg>
       <div class="wcCount"><b id="wcNum">0</b> / 250칸</div>
     </div>
+    <div class="wcName">
+      <label for="wcNameIn">이름을 알려 주세요</label>
+      <input id="wcNameIn" type="text" maxlength="10" placeholder="예: 하늘">
+      <small>나중에 설정에서 바꿀 수 있어요</small>
+    </div>
     <button id="wcGo" class="wcBtn">🚩 시작하기</button>
     <button id="wcHow" class="wcHow">어떻게 하는 건가요?</button>
   </div>
@@ -1470,22 +1529,54 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
 
 <div class="veil fullveil" id="howVeil">
   <div class="welcome howwrap">
-    <h2 class="wcTitle2">이렇게 해요</h2>
+    <h2 class="wcTitle2">땅따먹기가 뭐예요?</h2>
+    <div class="whybox">
+      <p class="whyline"><b>지문 하나를 읽으면 땅 한 칸이 내 것이 돼요.</b></p>
+      <p class="whysub">읽은 만큼 지도에 불이 켜져요.<br>
+         오늘 읽은 것이 눈에 보이니까 계속하게 돼요.</p>
+      <p class="whysub">땅을 얻을 때마다 그곳 이야기가 따라와요.<br>
+         읽기 연습을 하면서 우리나라와 세계를 함께 알게 되는 거예요.</p>
+    </div>
+
+    <h2 class="wcTitle2" style="margin-top:22px">이렇게 해요</h2>
     <div class="hows">
       <div class="howrow"><span class="hown">1</span>
-        <div><b>지문을 읽어요</b><small>스터디포스 교재나 책이면 무엇이든 좋아요</small></div></div>
+        <div><b>지문을 읽어요</b><small>스터디포스 비문학독서클럽·국어독해 온라인 프로그램,
+          포스마스터노트의 지문을 읽어요</small></div></div>
       <div class="howrow"><span class="hown">2</span>
-        <div><b>「오늘 지문 다 읽었어요」를 눌러요</b><small>읽은 내용을 한 줄 적으면 땅이 내 것이 돼요</small></div></div>
+        <div><b>「오늘 지문 다 읽었어요」를 눌러요</b><small>읽은 내용을 한 줄 적으면
+          우리나라 또는 세계의 땅 한 칸이 내 것이 돼요</small></div></div>
       <div class="howrow"><span class="hown">3</span>
-        <div><b>새로 얻은 땅을 만나요</b><small>그 고장·나라의 이야기가 카드로 나와요</small></div></div>
+        <div><b>새로 얻은 땅을 만나요</b><small>그 고장과 나라의 신기한 이야기가
+          카드로 나와요</small></div></div>
       <div class="howrow"><span class="hown">4</span>
-        <div><b>질문에 먼저 답해 봐요</b><small>맞고 틀리고는 기록하지 않아요. 한 번 생각해 보는 것뿐이에요</small></div></div>
+        <div><b>질문에 먼저 답해 봐요</b><small>답을 보기 전에 한 번 생각해 보면
+          더 깊이 남아요. 맞고 틀리고는 기록하지 않아요</small></div></div>
       <div class="howrow"><span class="hown">5</span>
-        <div><b>한 세계를 다 채우면</b><small>그 땅이 통째로 내 것이 되고 다음 세계가 열려요</small></div></div>
+        <div><b>한 세계를 다 채우면</b><small>그 땅이 통째로 내 것이 되고
+          새로운 세계가 열려요</small></div></div>
     </div>
-    <p class="howtip">📲 홈 화면에 추가하면 앱처럼 쓸 수 있어요<br>
-       💾 설정에서 백업 코드를 만들어 두세요</p>
-    <button id="howClose" class="wcBtn">알았어요!</button>
+
+    <h2 class="wcTitle2" style="margin-top:22px">알아 두면 좋아요</h2>
+    <div class="hows">
+      <div class="howrow"><span class="hown2">📅</span>
+        <div><b>하루에 한 칸이면 충분해요</b><small>많이 하는 것보다 매일 하는 게 힘이 돼요.
+          며칠 이어졌는지 첫 화면에서 볼 수 있어요</small></div></div>
+      <div class="howrow"><span class="hown2">💬</span>
+        <div><b>엄마·아빠에게 알려줄 수 있어요</b><small>카드에서 알려주고 싶은 것을 고르면
+          「엄마에게」 화면에 모여요. 퀴즈로 낼 수도 있고요</small></div></div>
+      <div class="howrow"><span class="hown2">💌</span>
+        <div><b>편지를 주고받아요</b><small>어른이 편지를 넣어 두면 정해진 날에 열려요.
+          답장도 쓸 수 있어요</small></div></div>
+      <div class="howrow"><span class="hown2">💾</span>
+        <div><b>백업을 꼭 해 두세요</b><small>기록은 이 기기 안에만 있어요.
+          설정 → 백업하기 → 카톡으로 보내기.
+          폰을 바꿔도, 컴퓨터에서도 이어서 할 수 있어요</small></div></div>
+      <div class="howrow"><span class="hown2">📲</span>
+        <div><b>앱으로 설치하면 편해요</b><small>홈 화면에 아이콘이 생기고
+          인터넷이 없어도 열려요</small></div></div>
+    </div>
+    <button id="howClose" class="wcBtn" style="margin-top:20px">알았어요!</button>
   </div>
 </div>
 
@@ -1536,6 +1627,63 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <input id="homeSearch" class="hsearch" type="text" placeholder="🔍 동네 이름을 적어 보세요 (예: 원주)">
     <div id="homeBody" class="homebody"></div>
     <button id="homeSkip" class="skip">나중에 정할게요</button>
+  </div>
+</div>
+
+<div class="veil" id="kidVeil">
+  <div class="panel kidpanel">
+    <div class="big">👦👧</div>
+    <div class="tb">누구 차례예요?</div>
+    <h3 id="kidTitle">아이 고르기</h3>
+    <p class="lead">아이마다 지도와 기록이 따로 있어요.</p>
+    <div class="kidlist" id="kidList"></div>
+    <button id="kidAdd" class="btn2">＋ 아이 추가하기</button>
+    <button id="kidClose" class="skip">닫기</button>
+  </div>
+</div>
+
+<div class="veil" id="movVeil">
+  <div class="panel movpanel">
+    <div class="big">💾</div>
+    <div class="tb">기록을 지켜요</div>
+    <h3>백업하기</h3>
+    <div class="movtab">
+      <button class="mvt on" data-mv="give">백업 만들기</button>
+      <button class="mvt" data-mv="take">되살리기</button>
+    </div>
+
+    <div id="movGive">
+      <div class="bakwhy">
+        <p><b>왜 하나요?</b></p>
+        <p>기록은 이 기기 안에만 있어요.<br>
+           폰을 바꾸거나 앱을 지우면 사라져요.</p>
+        <p><b>어떻게 하나요?</b></p>
+        <p>아래 버튼을 누르면 글자가 복사돼요.<br>
+           <b>카톡 → 나에게 보내기</b>에 붙여넣어 두면 끝이에요.</p>
+      </div>
+      <div class="movcode" id="movCode"></div>
+      <button id="movShare" class="btn">💬 카톡으로 보내기</button>
+      <button id="movCopy" class="btn2">📋 글자만 복사하기</button>
+      <p class="bakhint">컴퓨터에서도 쓰고 싶다면 이 글자를 컴퓨터로 옮겨
+         「되살리기」에 넣으면 돼요.</p>
+    </div>
+
+    <div id="movTake" style="display:none">
+      <div class="bakwhy">
+        <p><b>언제 쓰나요?</b></p>
+        <p>새 폰으로 바꿨을 때,<br>
+           기록이 사라졌을 때,<br>
+           컴퓨터에서도 이어서 하고 싶을 때요.</p>
+        <p><b>어떻게 하나요?</b></p>
+        <p>카톡에 저장해 둔 글자를 복사해서<br>
+           아래 칸에 붙여넣으세요.</p>
+      </div>
+      <textarea id="movIn" rows="4" class="ckin" placeholder="1.AAAA... 로 시작하는 글자를 붙여넣으세요"></textarea>
+      <p class="ckwarn" id="movWarn"></p>
+      <button id="movLoad">📥 이 기록으로 되살리기</button>
+    </div>
+
+    <button id="movClose" class="skip">닫기</button>
   </div>
 </div>
 
@@ -1670,6 +1818,14 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <h3>설정</h3>
     <div class="setbody">
 
+      <div class="sg">내 정보</div>
+      <div class="sr"><span class="sk">아이 이름</span>
+        <input id="setName" class="si" type="text" maxlength="10" placeholder="이름을 적어요"></div>
+      <div class="sr" id="setHomeRow"><span class="sk">우리 동네</span><b id="setHome">아직 안 정함</b></div>
+      <button class="sb" id="homeBtn">🏠 우리 동네 다시 고르기</button>
+      <button class="sb" id="kidBtn">👦👧 아이 바꾸기 · 추가하기</button>
+
+      <div class="sg">도움말</div>
       <button class="sb" id="howBtn">❓ 어떻게 하는 건가요?</button>
 
       <div class="sg">오늘 한 일</div>
@@ -1679,20 +1835,15 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       <div class="sg">안전</div>
       <div class="sr" id="saveStat"><span class="sk">저장 상태</span><b id="saveStatV">확인 중</b></div>
       <div class="sr"><span class="sk">설치 상태</span><b id="instStatV">확인 중</b></div>
-      <button class="sb" id="bakBtn">💾 백업 코드 만들기</button>
-      <button class="sb" id="resBtn">📥 백업 코드로 되살리기</button>
+      <button class="sb" id="linkBtn">💾 백업하기 · 다른 기기로 옮기기</button>
+      <button class="sb" id="bakBtn" style="display:none">백업</button>
+      <button class="sb" id="resBtn" style="display:none">되살리기</button>
       <button class="sb" id="pinBtn">📲 앱으로 설치하기</button>
       <button class="sb" id="reloadBtn">🔄 최신 버전으로 새로고침</button>
 
       <div class="sg">되돌리기</div>
       <div class="sr"><span class="sk">마지막에 딴 땅</span><b id="lastLand">없음</b></div>
       <button class="sb warn" id="undoBtn">↩️ 방금 딴 땅 취소하기</button>
-
-      <div class="sg">내 정보</div>
-      <div class="sr"><span class="sk">아이 이름</span>
-        <input id="setName" class="si" type="text" maxlength="10" placeholder="이름을 적어요"></div>
-      <div class="sr" id="setHomeRow"><span class="sk">우리 동네</span><b id="setHome">아직 안 정함</b></div>
-      <button class="sb" id="homeBtn">🏠 우리 동네 다시 고르기</button>
 
       <div class="sg">보기</div>
       <label class="sr sw"><span class="sk">🔊 소리</span>
@@ -1754,7 +1905,25 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
      · 진도를 '코드 목록'으로 저장 → 순서가 바뀌어도 기록이 안 흔들림
      · 본저장 + 예비저장 두 벌 → 하나가 깨져도 복구
      · 옛 저장본은 지우지 않고 그대로 둠                        */
-  var SAVE="sf_v2", BAK="sf_v2_bak", OLD1="sf_land_w1";
+  /* ---------- 아이별 저장 ----------
+     한 기기에서 형제가 각자 쓸 수 있게, 아이마다 저장 자리를 나눠요.
+     첫째 아이는 예전 자리를 그대로 씁니다(기존 기록 보호). */
+  var KIDS="sf_kids";
+  function readKids(){
+    var k=null;
+    try{ var v=localStorage.getItem(KIDS); k=v?JSON.parse(v):null; }catch(e){}
+    if(!k || !k.list || !k.list.length) k={list:[{id:"1",name:""}], cur:"1"};
+    if(!k.cur || !k.list.some(function(x){ return x.id===k.cur; })) k.cur=k.list[0].id;
+    return k;
+  }
+  function saveKids(k){
+    try{ localStorage.setItem(KIDS, JSON.stringify(k)); }catch(e){}
+  }
+  var KID=readKids();
+  function kidSuffix(id){ return (id==="1") ? "" : ("_"+id); }
+  var SAVE="sf_v2"+kidSuffix(KID.cur),
+      BAK ="sf_v2_bak"+kidSuffix(KID.cur),
+      OLD1="sf_land_w1";
   var mem={};
   function readRaw(k){
     try{ var v=localStorage.getItem(k); return v?JSON.parse(v):null; }
@@ -1830,15 +1999,265 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     if(!db.worlds[db.cur]) db.cur=wkey("read","1");
     return db;
   }
+  /* 날마다 한 번씩 사본을 남겨 둬요 — 실수로 지워도 되돌릴 수 있게 */
+  function keepDaily(){
+    try{
+      var t=today(), k="sf_day_"+t;
+      if(localStorage.getItem(k)) return;
+      writeRaw(k, DB);
+      /* 사흘치만 남기고 지워요 */
+      var keys=[];
+      for(var i=0;i<localStorage.length;i++){
+        var kk=localStorage.key(i);
+        if(kk && kk.indexOf("sf_day_")===0) keys.push(kk);
+      }
+      keys.sort();
+      while(keys.length>3){ localStorage.removeItem(keys.shift()); }
+    }catch(e){}
+  }
+
+  /* ---------- 기록을 아주 짧게 담기 ----------
+     딴 칸을 0과 1로 적으면 90배 짧아져요. QR로도 옮길 수 있어요. */
+  function allWorldKeys(){
+    var out=[];
+    COURSE_ORDER.forEach(function(c){
+      Object.keys(COURSES[c].worlds).forEach(function(k){ out.push(c+":"+k); });
+    });
+    return out;
+  }
+  function b64enc(bytes){
+    var s="";
+    for(var i=0;i<bytes.length;i++) s+=String.fromCharCode(bytes[i]);
+    return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+  }
+  function b64dec(str){
+    var s=str.replace(/-/g,"+").replace(/_/g,"/");
+    while(s.length%4) s+="=";
+    var bin=atob(s), out=[];
+    for(var i=0;i<bin.length;i++) out.push(bin.charCodeAt(i));
+    return out;
+  }
+  function packDB(){
+    var bits=[];
+    allWorldKeys().forEach(function(full){
+      var p=full.split(":"), w=COURSES[p[0]].worlds[p[1]];
+      var st=(DB.worlds||{})[full]||{};
+      var mine={}; (st.claimed||[]).forEach(function(c){ mine[c]=1; });
+      w.tiles.forEach(function(t){ bits.push(mine[t.code]?1:0); });
+    });
+    var bytes=[];
+    for(var i=0;i<bits.length;i+=8){
+      var v=0;
+      for(var j=0;j<8;j++) v=(v<<1)|(bits[i+j]||0);
+      bytes.push(v);
+    }
+    /* 이름·과목·설정 같은 짧은 것들 */
+    var meta={n:DB.name||"", c:DB.course||"read", u:DB.cur||"", h:DB.home||"",
+              s:DB.sound?1:0, d:DB.doing||{}, b:DB.habits||{}};
+    var mtxt=encodeURIComponent(JSON.stringify(meta));
+    return "1." + b64enc(bytes) + "." + btoa(unescape(mtxt));
+  }
+  function unpackDB(code){
+    try{
+      var p=String(code).trim().split(".");
+      if(p[0]!=="1") return null;
+      var bytes=b64dec(p[1]);
+      var meta={};
+      try{ meta=JSON.parse(decodeURIComponent(escape(atob(p[2]||"")))); }catch(e){}
+      var db=loadDB();                 /* 지금 틀을 가져와 덮어써요 */
+      var idx=0;
+      allWorldKeys().forEach(function(full){
+        var q=full.split(":"), w=COURSES[q[0]].worlds[q[1]];
+        var got=[];
+        w.tiles.forEach(function(t){
+          var byte=bytes[idx>>3]||0;
+          var bit=(byte>>(7-(idx&7)))&1;
+          if(bit) got.push(t.code);
+          idx++;
+        });
+        if(!db.worlds[full]) db.worlds[full]={};
+        db.worlds[full].claimed=got;
+        db.worlds[full].unlocked=got.length;
+      });
+      if(meta.n) db.name=meta.n;
+      if(meta.c) db.course=meta.c;
+      if(meta.u) db.cur=meta.u;
+      if(meta.h) db.home=meta.h;
+      db.sound=!!meta.s;
+      if(meta.d) db.doing=meta.d;
+      if(meta.b) db.habits=meta.b;
+      return db;
+    }catch(e){ return null; }
+  }
+
+  /* ---------- 아이 고르기 ---------- */
+  function kidStat(id){
+    var raw=null;
+    try{ var v=localStorage.getItem("sf_v2"+kidSuffix(id)); raw=v?JSON.parse(v):null; }catch(e){}
+    if(!raw) return {n:0, name:""};
+    var n=0;
+    Object.keys(raw.worlds||{}).forEach(function(k){ n+=(raw.worlds[k].claimed||[]).length; });
+    return {n:n, name:raw.name||""};
+  }
+  function kidLabel(k){
+    var st=kidStat(k.id);
+    return (k.name || st.name || "이름 없음");
+  }
+  function renderKids(){
+    var box=document.getElementById("kidList"); if(!box) return;
+    box.innerHTML="";
+    var EMO=["🦊","🐰","🐻","🐼","🐨","🦁"];
+    KID.list.forEach(function(k,i){
+      var st=kidStat(k.id);
+      var row=document.createElement("div");
+      row.className="kidrow"+(k.id===KID.cur?" cur":"");
+      row.innerHTML='<span class="kide">'+EMO[i%EMO.length]+'</span>'
+        +'<span class="kidmid"><span class="kidnm">'+esc(kidLabel(k))+'</span>'
+        +'<span class="kidsub">'+st.n+'칸'+(k.id===KID.cur?' · 지금 이 아이':'')+'</span></span>';
+      row.onclick=function(){ switchKid(k.id); };
+      if(KID.list.length>1 && k.id!==KID.cur){
+        var del=document.createElement("button");
+        del.className="kiddel"; del.textContent="🗑";
+        del.onclick=function(e){
+          e.stopPropagation();
+          if(!confirm(kidLabel(k)+"의 기록을 지울까요?\n지운 뒤에는 되돌릴 수 없어요.")) return;
+          try{
+            localStorage.removeItem("sf_v2"+kidSuffix(k.id));
+            localStorage.removeItem("sf_v2_bak"+kidSuffix(k.id));
+          }catch(e2){}
+          KID.list=KID.list.filter(function(x){ return x.id!==k.id; });
+          saveKids(KID); renderKids();
+        };
+        row.appendChild(del);
+      }
+      box.appendChild(row);
+    });
+  }
+  function switchKid(id){
+    if(id===KID.cur){ DB.kidAsked=true; persist(); navBack(); return; }
+    KID.cur=id; saveKids(KID);
+    setTimeout(function(){ location.replace(location.pathname); },150);
+  }
+  function addKid(){
+    var nm=(prompt("새 아이의 이름을 적어 주세요","")||"").trim();
+    if(!nm) return;
+    var id=String(Date.now()).slice(-6);
+    KID.list.push({id:id, name:nm});
+    KID.cur=id; saveKids(KID);
+    setTimeout(function(){ location.replace(location.pathname); },150);
+  }
+  function openKids(){
+    /* 첫째 아이 이름이 비었으면 저장된 이름을 가져와요 */
+    KID.list.forEach(function(k){
+      if(!k.name){ var st=kidStat(k.id); if(st.name) k.name=st.name; }
+    });
+    saveKids(KID);
+    renderKids();
+    navOpen(document.getElementById("kidVeil"));
+  }
+
+  /* 폰 ↔ 컴퓨터 옮기기 */
+  function openMove(){
+    var code=packDB();
+    document.getElementById("movCode").textContent=code;
+    document.getElementById("movIn").value="";
+    document.getElementById("movWarn").textContent="";
+    setMoveTab("give");
+    navOpen(document.getElementById("movVeil"));
+  }
+  function setMoveTab(which){
+    document.getElementById("movGive").style.display=(which==="give")?"":"none";
+    document.getElementById("movTake").style.display=(which==="take")?"":"none";
+    [].forEach.call(document.querySelectorAll(".mvt"),function(b){
+      b.className="mvt"+(b.getAttribute("data-mv")===which?" on":"");
+    });
+  }
+  function moveText(){
+    var nm=(DB.name||"우리 아이");
+    var n=0;
+    Object.keys(DB.worlds||{}).forEach(function(k){ n+=(DB.worlds[k].claimed||[]).length; });
+    return "🗺️ "+nm+"의 땅따먹기 백업 ("+n+"칸)\n"+fmtDate(today())+"\n\n"
+      +"⚠️ 지우지 말고 그대로 두세요.\n"
+      +"기록이 사라졌을 때 이 글자로 되살려요.\n\n"
+      +"[되살리는 법]\n"
+      +"설정 → 백업하기 → 되살리기 → 아래 글자 붙여넣기\n\n"
+      +packDB();
+  }
+
+  /* ---------- 다른 기기로 옮기기 ----------
+     기록을 주소에 담아 보내요. 받은 기기에서 열면 그대로 살아나요. */
+  function makeLink(){
+    try{
+      var raw=btoa(unescape(encodeURIComponent(JSON.stringify(DB))));
+      var base=location.href.split("#")[0].split("?")[0];
+      return base+"#load="+raw;
+    }catch(e){ return null; }
+  }
+  function shareLink(){
+    var url=makeLink();
+    if(!url){ info.innerHTML="<b>링크를 만들지 못했어요</b>"; return; }
+    var nm=(DB.name||"우리 아이");
+    var txt="🗺️ "+nm+"의 땅따먹기 기록이에요.\n\n"
+      +"이 링크를 새 휴대폰에서 열면 기록이 그대로 옮겨져요.\n"
+      +"(한 번만 쓰면 되고, 링크는 지워도 괜찮아요)\n\n"+url;
+    if(navigator.share){
+      navigator.share({title:"땅따먹기 기록 옮기기", text:txt}).catch(function(){});
+      return;
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        var b=document.getElementById("linkBtn");
+        if(b){ var old=b.textContent;
+          b.textContent="✅ 복사했어요 · 새 기기에 붙여넣어 열어요";
+          setTimeout(function(){ b.textContent=old; },3500); }
+      });
+      return;
+    }
+    prompt("이 주소를 새 기기에서 열어 주세요", url);
+  }
+  /* 링크로 들어왔으면 되살려요 */
+  function checkLoadLink(){
+    var m=(location.hash||"").match(/[#&]load=([A-Za-z0-9+/=]+)/);
+    if(!m) return false;
+    var obj=null;
+    try{ obj=JSON.parse(decodeURIComponent(escape(atob(m[1])))); }catch(e){}
+    try{ history.replaceState(null,"",location.pathname); }catch(e){}
+    if(!obj || !obj.worlds){
+      setTimeout(function(){ info.innerHTML="<b>링크가 올바르지 않아요</b>"; },600);
+      return false;
+    }
+    var mine=0;
+    try{
+      var cur=readRaw(SAVE);
+      if(cur && cur.worlds) Object.keys(cur.worlds).forEach(function(k){
+        mine+=(cur.worlds[k].claimed||[]).length;
+      });
+    }catch(e){}
+    var got=0;
+    Object.keys(obj.worlds).forEach(function(k){ got+=(obj.worlds[k].claimed||[]).length; });
+    var ok=true;
+    if(mine>0){
+      ok=confirm("이 기기에는 이미 "+mine+"칸 기록이 있어요.\n"
+        +"받은 기록("+got+"칸)으로 바꿀까요?\n\n"
+        +"※ 지금 기록은 사라져요.");
+    }
+    if(!ok) return false;
+    writeRaw(SAVE,obj); writeRaw(BAK,obj);
+    setTimeout(function(){ location.replace(location.pathname); },200);
+    return true;
+  }
+
   function persist(){
     var okA=writeRaw(SAVE,DB);
     var okB=writeRaw(BAK,DB);
+    keepDaily();
     if(!okA && !okB && !warnedSave){
       warnedSave=true;
       try{ info.innerHTML="<b>저장에 실패했어요</b> · 백업 코드를 꼭 남겨 주세요"; }catch(e){}
     }
   }
   var warnedSave=false;
+  if(checkLoadLink()){ /* 링크로 받은 기록을 되살리는 중 */ }
   var DB=loadDB();
   var state=null;                                /* 현재 세계 상태(파생) */
   function syncState(){
@@ -1847,7 +2266,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     state={ claimed:w.claimed, unlocked:w.claimed.length,
             field:w.field, fieldE:w.fieldE,
             home:DB.home, sound:DB.sound, asked:DB.asked, welcomed:DB.welcomed,
-            habits:DB.habits, doing:DB.doing, tells:DB.tells, mile:DB.mile,
+            habits:DB.habits, doing:DB.doing, tells:DB.tells, mile:DB.mile, bakDay:DB.bakDay,
             streak:DB.streak, best:DB.best, lastDone:DB.lastDone, rested:DB.rested,
             todayN:DB.todayN, logs:DB.logs };
   }
@@ -1857,6 +2276,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     w.field=st.field; w.fieldE=st.fieldE;
     DB.home=st.home; DB.sound=st.sound; DB.asked=st.asked; DB.welcomed=st.welcomed;
     DB.habits=st.habits||{}; DB.doing=st.doing||{}; DB.tells=st.tells||{}; DB.mile=st.mile||{};
+    DB.bakDay=st.bakDay||"";
     DB.streak=st.streak; DB.best=st.best; DB.lastDone=st.lastDone; DB.rested=st.rested;
     DB.todayN=st.todayN; DB.logs=st.logs;
     persist();
@@ -2131,6 +2551,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       ? ((WORLD.sub||(SIDO_KEYS.length+"개 나라")) + " — " + TOTAL + "칸")
       : (SIDO_KEYS.map(function(k){return SIDO[k].n;}).join(" · ") + " — " + TOTAL + "칸");
     renderHabits();          /* 오늘 한 일 */
+    showHello();             /* 이름 인사 */
   }
 
   /* ---------- 지도 탭 ---------- */
@@ -2540,7 +2961,11 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   document.getElementById("qzClose").addEventListener("click",navBack);
   document.getElementById("hbSet").addEventListener("click",openHabitPick);
   document.getElementById("hbDone").addEventListener("click",navBack);
-  document.getElementById("wcGo").addEventListener("click",openPickCourse);
+  document.getElementById("wcGo").addEventListener("click",function(){
+    var v=(document.getElementById("wcNameIn").value||"").trim();
+    if(v){ DB.name=v; persist(); }
+    openPickCourse();
+  });
   document.getElementById("wcHow").addEventListener("click",function(){
     navOpen(document.getElementById("howVeil"));
   });
@@ -2719,14 +3144,64 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     if(pinVeil.className.indexOf("on")>=0) navBack();
     setTimeout(function(){ info.innerHTML="<b>설치했어요!</b> 홈 화면에서 열어 보세요"; },400);
   });
+  /* 카카오톡 안에서 크롬·사파리로 바로 옮겨 가요 */
+  function openInChrome(){
+    var url=location.href.split("#")[0];
+    var bare=url.replace(/^https?:\/\//,"");
+    if(isAndroid){
+      /* 크롬으로 바로 */
+      var to=url+(url.indexOf("?")>=0?"&":"?")+"pin=1";
+      var bare2=to.replace(/^https?:\/\//,"");
+      location.href="intent://"+bare2+"#Intent;scheme=https;package=com.android.chrome;"
+        +"S.browser_fallback_url="+encodeURIComponent(to)+";end";
+      setTimeout(function(){
+        /* 크롬이 없으면 아무 브라우저로 */
+        location.href="intent://"+bare+"#Intent;scheme=https;end";
+      },1200);
+    } else if(isIOS){
+      /* 사파리를 직접 열 수는 없어 크롬을 먼저 시도해요 */
+      var t=Date.now();
+      location.href="googlechrome://"+bare+(url.indexOf("?")>=0?"&":"?")+"pin=1";
+      setTimeout(function(){
+        if(Date.now()-t<1600){
+          var g2=document.getElementById("pinGuide");
+          if(g2) g2.innerHTML='<div class="pgh">이렇게 해 주세요</div>'
+            +'<ol><li>오른쪽 위 <b>⋯</b> 를 누르세요.</li>'
+            +'<li><b>다른 브라우저로 열기</b> 또는 <b>Safari로 열기</b>를 고르세요.</li></ol>';
+        }
+      },1500);
+    }
+  }
   function renderGuide(){
     var g=document.getElementById("pinGuide");
     if(!g) return;
     if(inApp){
-      g.innerHTML='<div class="pgh">먼저 할 일</div>'
-        +'<ol><li>지금은 <b>카카오톡·네이버 안</b>에서 보고 있어요.</li>'
-        +'<li>오른쪽 위 <b>⋯</b> 를 눌러 <b>다른 브라우저로 열기</b>를 고르세요.</li>'
-        +'<li>크롬이나 사파리에서 열면 설치할 수 있어요.</li></ol>';
+      var ib2=document.getElementById("pinInstall");
+      if(ib2) ib2.style.display="none";
+      if(isAndroid){
+        g.innerHTML='<div class="pgh">한 번만 누르면 돼요</div>'
+          +'<p class="pgo">지금은 카카오톡 안이라 설치할 수 없어요.<br>'
+          +'아래 버튼을 누르면 크롬으로 옮겨 가요.</p>'
+          +'<button id="pinChrome" class="pinchrome">🌐 크롬으로 열기</button>'
+          +'<p class="pgn">기록은 그대로 이어져요.</p>';
+        setTimeout(function(){
+          var b=document.getElementById("pinChrome");
+          if(b) b.onclick=openInChrome;
+        },0);
+      } else if(isIOS){
+        g.innerHTML='<div class="pgh">한 번만 누르면 돼요</div>'
+          +'<p class="pgo">지금은 카카오톡 안이라 설치할 수 없어요.<br>'
+          +'사파리로 열어야 홈 화면에 넣을 수 있어요.</p>'
+          +'<button id="pinChrome" class="pinchrome">🌐 사파리로 열기</button>'
+          +'<p class="pgn">버튼이 안 되면 오른쪽 위 <b>⋯ → 다른 브라우저로 열기</b></p>';
+        setTimeout(function(){
+          var b=document.getElementById("pinChrome");
+          if(b) b.onclick=openInChrome;
+        },0);
+      } else {
+        g.innerHTML='<div class="pgh">먼저 할 일</div>'
+          +'<ol><li>오른쪽 위 <b>⋯</b> 를 눌러 <b>다른 브라우저로 열기</b>를 고르세요.</li></ol>';
+      }
       return;
     }
     if(deferredPrompt){
@@ -2999,8 +3474,13 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   }
   var wcTimer=null;
   function openWelcome(){
+    fillWelcomeName();
     navOpen(document.getElementById("welcomeVeil"));
     setTimeout(playWelcomeDemo,250);
+  }
+  function fillWelcomeName(){
+    var el=document.getElementById("wcNameIn");
+    if(el) el.value=(DB.name||"");
   }
   function openPickCourse(){
     if(wcTimer){ clearInterval(wcTimer); wcTimer=null; }
@@ -3455,6 +3935,8 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       });
       lb.innerHTML=h; lb.style.display="";
     } else lb.style.display="none";
+    var mt=document.getElementById("momTitle");
+    if(mt) mt.textContent = DB.name ? (DB.name+"의 오늘 공부") : "오늘의 공부 보고";
     renderMomTell();
     renderStamps();
     document.getElementById("momBody").innerHTML = buildReportHTML();
@@ -4297,7 +4779,60 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   }
 
   /* ---------- 백업 / 복원 ---------- */
-  document.getElementById("bakBtn").addEventListener("click",function(){
+  document.getElementById("linkBtn").addEventListener("click",function(){
+    openMove(); DB.bakDay=today(); persist();
+  });
+  document.getElementById("kidBtn").addEventListener("click",openKids);
+  document.getElementById("kidClose").addEventListener("click",navBack);
+  document.getElementById("kidAdd").addEventListener("click",addKid);
+  document.getElementById("movClose").addEventListener("click",navBack);
+  [].forEach.call(document.querySelectorAll(".mvt"),function(b){
+    b.addEventListener("click",function(){ setMoveTab(b.getAttribute("data-mv")); });
+  });
+  document.getElementById("movCopy").addEventListener("click",function(){
+    var t=packDB(), b=document.getElementById("movCopy");
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(function(){
+        b.textContent="✅ 복사했어요"; setTimeout(function(){ b.textContent="📋 글자 복사하기"; },2500);
+      });
+    } else prompt("이 글자를 옮겨 주세요", t);
+  });
+  document.getElementById("movShare").addEventListener("click",function(){
+    var t=moveText();
+    if(navigator.share){ navigator.share({title:"땅따먹기 기록 옮기기",text:t}).catch(function(){}); return; }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(function(){
+        var b=document.getElementById("movShare");
+        b.textContent="✅ 복사했어요 · 카톡에 붙여넣으세요";
+        setTimeout(function(){ b.textContent="💬 카톡으로 보내기"; },3000);
+      });
+    } else prompt("이 글을 옮겨 주세요", t);
+  });
+  document.getElementById("movLoad").addEventListener("click",function(){
+    var v=(document.getElementById("movIn").value||"").replace(/\s/g,"");
+    var db=null;
+    var m=v.match(/1\.[A-Za-z0-9\-_]+\.[A-Za-z0-9+/=]*/);
+    if(m) db=unpackDB(m[0]);
+    if(!db){
+      /* 예전 방식의 긴 백업 코드도 받아 줘요 */
+      var hit=v.match(/[A-Za-z0-9+/=]{60,}/g);
+      if(hit){
+        var big=hit.sort(function(a2,b2){ return b2.length-a2.length; })[0];
+        try{ var o=JSON.parse(decodeURIComponent(escape(atob(big))));
+             if(o && o.worlds) db=o; }catch(e){}
+      }
+    }
+    if(!db){ document.getElementById("movWarn").textContent="글자를 다시 확인해 주세요."; return; }
+    var got=0;
+    Object.keys(db.worlds||{}).forEach(function(k){ got+=(db.worlds[k].claimed||[]).length; });
+    var mine=0;
+    Object.keys(DB.worlds||{}).forEach(function(k){ mine+=(DB.worlds[k].claimed||[]).length; });
+    if(mine>0 && !confirm("이 기기에는 "+mine+"칸 기록이 있어요.\n받은 기록("+got+"칸)으로 바꿀까요?")) return;
+    writeRaw(SAVE,db); writeRaw(BAK,db);
+    setTimeout(function(){ location.replace(location.pathname); },200);
+  });
+    document.getElementById("bakBtn").addEventListener("click",function(){
+    DB.bakDay=today(); persist();
     var code="";
     try{ code=btoa(unescape(encodeURIComponent(JSON.stringify(DB)))); }
     catch(e){ alert("백업 코드를 만들지 못했어요."); return; }
@@ -4791,6 +5326,15 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       d.setDate(d.getDate()-1);
     }
     return n;
+  }
+  function showHello(){
+    var el=document.getElementById("hello"); if(!el) return;
+    var nm=(DB.name||"").trim();
+    if(!nm){ el.style.display="none"; return; }
+    var n=0;
+    Object.keys(DB.worlds||{}).forEach(function(k){ n+=(DB.worlds[k].claimed||[]).length; });
+    el.style.display="";
+    el.textContent = "🗺️ "+nm+"의 지도 · "+n+"칸";
   }
   function renderHabits(){
     var box=document.getElementById("habits"); if(!box) return;
@@ -5407,10 +5951,46 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   }
   else if(state && !state.field) setTimeout(askField,400);
   else if(state && !DB.asked && useHome() && !isFirstTime()) setTimeout(askHome,400);
+  /* 아이가 둘 이상이면 누구 차례인지 먼저 물어봐요 */
+  if(KID.list.length>1 && !DB.kidAsked){
+    setTimeout(function(){
+      if(navStack.length) return;
+      openKids();
+      var t=document.getElementById("kidTitle");
+      if(t) t.textContent="누가 할 차례예요?";
+    },700);
+  }
   setTimeout(checkLetterFly, 1500);      /* 켤 때 새 편지가 왔는지 봐요 */
+  /* 백업한 지 오래되면 조용히 알려 줘요 */
+  setTimeout(function(){
+    if(navStack.length) return;
+    var tot=0;
+    Object.keys(DB.worlds||{}).forEach(function(k){ tot+=(DB.worlds[k].claimed||[]).length; });
+    if(tot<10) return;                       /* 기록이 적으면 아직 */
+    var last=DB.bakDay||"";
+    var days=9999;
+    if(last){
+      var a2=new Date(last), b2=new Date(today());
+      days=Math.round((b2-a2)/86400000);
+    }
+    if(days>=14){
+      info.innerHTML="<b>💾 백업한 지 "+(last?(days+"일 됐어요"):"오래됐어요")+"</b>"
+        + " · 설정에서 코드를 남겨 두세요";
+    }
+  }, 3400);
   if(DB.migrated||DB.upgraded){ setTimeout(function(){
     info.innerHTML="<b>이전 기록을 안전하게 옮겼어요</b>"; },900); }
-  if(!DB.pinned && !isInstalled()){
+  /* 카톡에서 크롬으로 막 옮겨 온 참이면 곧바로 안내해요 */
+  if(/[?&]pin=1/.test(location.search) && !isInstalled()){
+    setTimeout(function(){
+      renderGuide(); navOpen(pinVeil);
+      var b=document.getElementById("pinInstall");
+      if(b && deferredPrompt) b.style.display="";
+      info.innerHTML="<b>🌐 크롬으로 옮겨 왔어요</b> · 이제 앱으로 설치할 수 있어요";
+      try{ history.replaceState(null,"",location.pathname); }catch(e){}
+    },900);
+  }
+  else if(!DB.pinned && !isInstalled()){
     setTimeout(function(){
       if(navStack.length) return;        /* 다른 창이 열려 있으면 방해하지 않음 */
       renderGuide(); navOpen(pinVeil);
