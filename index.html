@@ -1344,7 +1344,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <div class="chips" id="chips"></div>
   </section>
 
-  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-04-q</p>
+  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-04-u</p>
   </div>
 
   <div class="goalcard" id="goalBox"></div>
@@ -1390,7 +1390,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       <input id="ckRound" type="number" min="1" inputmode="numeric" class="ckin">
     </label>
     <label class="ckl">오늘 지문은 무슨 이야기였어?
-      <textarea id="ckNote" rows="3" class="ckin" placeholder="예: 완도 앞바다에서 김을 어떻게 기르는지 나왔다"></textarea>
+      <textarea id="ckNote" rows="3" class="ckin"></textarea>
     </label>
     <p class="ckwarn" id="ckWarn"></p>
     <button id="ckGo">이 땅 따먹기!</button>
@@ -1704,6 +1704,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     </div>
     <p class="qzhint">아이가 듣고 정해요</p>
     <div id="qzA" class="qza" style="display:none"></div>
+    <button id="qzNext" class="btn" style="display:none">다음 문제 →</button>
     <button id="qzClose" class="skip">닫기</button>
   </div>
 </div>
@@ -5224,11 +5225,33 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     return null;
   }
   /* 아이가 폰을 건네 바로 문제를 내요 */
+  /* 고른 것들을 차례로 내요 */
+  var qsList=[], qsIdx=0;
+  function openQuizSet(list){
+    qsList=list.slice(); qsIdx=0;
+    showQuizAt(0);
+    navOpen(document.getElementById("qzVeil"));
+  }
+  function showQuizAt(i){
+    var x=qsList[i]; if(!x) return;
+    fillQuiz(x.ask, x.wow, i, qsList.length);
+  }
   function openQuizNow(ask, wow){
+    qsList=[{ask:ask, wow:wow}]; qsIdx=0;
+    fillQuiz(ask, wow, 0, 1);
+    navOpen(document.getElementById("qzVeil"));
+  }
+  function fillQuiz(ask, wow, idx, total){
+    qsIdx=idx;
     document.getElementById("qzQ").textContent=ask;
+    var tag=document.getElementById("qzTag");
+    if(tag) tag.textContent = (total>1) ? ("엄마, 이거 알아? ("+(idx+1)+"/"+total+")")
+                                       : "엄마, 이거 알아?";
     var a=document.getElementById("qzA");
     var judge=document.getElementById("qzJudge");
     var hint=document.querySelector(".qzhint");
+    var nx=document.getElementById("qzNext");
+    if(nx) nx.style.display="none";
     a.style.display="none"; a.innerHTML="";
     judge.style.display=""; if(hint) hint.style.display="";
     var old=document.querySelector(".qzmark"); if(old) old.remove();
@@ -5243,6 +5266,16 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
                     : "이제 아이가 알려 줄 차례예요.")+'</em>';
       a.style.display="";
       beep(ok?[659,880]:[523,784,1047],0.22);
+      /* 다음 문제가 있으면 이어서 */
+      var nx2=document.getElementById("qzNext");
+      if(nx2 && qsIdx+1<qsList.length){
+        nx2.style.display="";
+        nx2.textContent="다음 문제 →  ("+(qsIdx+2)+"/"+qsList.length+")";
+        nx2.onclick=function(){
+          var old=document.querySelector(".qzmark"); if(old) old.remove();
+          showQuizAt(qsIdx+1);
+        };
+      }
     }
     document.getElementById("qzOk").onclick=function(){ done(true); };
     document.getElementById("qzNo").onclick=function(){ done(false); };
@@ -5253,18 +5286,20 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     var qz=document.getElementById("ivQuiz");
     var now=document.getElementById("ivQuizNow");
     var saved=tellStore(), nm=(t.full||t.name);
-    /* 가장 마지막에 고른 것으로 문제를 내요 */
-    var last=null;
-    saved.forEach(function(x){ if(x.name===nm) last=x; });
-    if(last && last.ask){
-      /* 누르면 바로 문제가 떠요. 엄마 화면에도 함께 담겨요. */
+    /* 고른 것 모두가 문제가 돼요 */
+    var mine=saved.filter(function(x){ return x.name===nm && x.ask; });
+    if(mine.length){
       qz.style.display="none";
       now.style.display="";
-      now.textContent = last.quiz ? "👩 엄마한테 다시 내기" : "👩 이걸로 엄마한테 문제 내기";
+      var done=mine.filter(function(x){ return x.quiz; }).length;
+      now.textContent = (mine.length>1)
+        ? ("👩 엄마한테 문제 내기 ("+mine.length+"개)")
+        : (done ? "👩 엄마한테 다시 내기" : "👩 이걸로 엄마한테 문제 내기");
       now.onclick=function(){
-        if(!last.quiz){ last.quiz=true; persist(); }
-        openQuizNow(last.ask, last.wow);
-        now.textContent="👩 엄마한테 다시 내기";
+        mine.forEach(function(x){ x.quiz=true; });
+        persist();
+        openQuizSet(mine);
+        refreshTellUI(t);
       };
     } else { qz.style.display="none"; now.style.display="none"; }
   }
@@ -5968,9 +6003,42 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
      파일 전체를 받지 않고, 서버가 알려 주는 '마지막 수정 시각'만 확인합니다.
      바뀌었으면 안내 띠를 띄웁니다. (본문을 읽지 않아 아주 가볍습니다) */
   (function autoUpdate(){
-    var seen=null, busy=false;
+    var seen=null, busy=false, reloaded=false;
+    var TAGKEY="sf_ver";
+    function readTag(){ try{ return localStorage.getItem(TAGKEY)||""; }catch(e){ return ""; } }
+    function saveTag(v){ try{ localStorage.setItem(TAGKEY,v); }catch(e){} }
+
+    /* 앱을 켤 때: 새 버전이 있으면 묻지 않고 곧바로 받아 옵니다 */
+    function firstCheck(){
+      try{
+        fetch(location.pathname, {method:"HEAD", cache:"no-store"})
+          .then(function(r){
+            if(!r || !r.ok) return;
+            var tag=r.headers.get("etag") || r.headers.get("last-modified");
+            if(!tag) return;
+            seen=tag;
+            var old=readTag();
+            if(old && old!==tag && !reloaded){
+              reloaded=true;
+              saveTag(tag);
+              /* 서비스 워커가 들고 있는 옛 파일도 함께 비웁니다 */
+              if(window.caches && caches.keys){
+                caches.keys().then(function(ks){
+                  return Promise.all(ks.map(function(k){ return caches.delete(k); }));
+                }).catch(function(){}).then(function(){
+                  location.reload(true);
+                });
+              } else location.reload(true);
+              return;
+            }
+            saveTag(tag);
+          }).catch(function(){});
+      }catch(e){}
+    }
+
+    /* 쓰는 중에 바뀌면: 하던 일을 끊지 않도록 띠만 띄웁니다 */
     function check(){
-      if(busy) return; busy=true;
+      if(busy||reloaded) return; busy=true;
       try{
         fetch(location.pathname, {method:"HEAD", cache:"no-store"})
           .then(function(r){
@@ -5978,8 +6046,9 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
             if(!r || !r.ok) return;
             var tag=r.headers.get("etag") || r.headers.get("last-modified");
             if(!tag) return;
-            if(seen===null){ seen=tag; return; }
+            if(seen===null){ seen=tag; saveTag(tag); return; }
             if(tag!==seen){
+              seen=tag; saveTag(tag);
               var bar=document.getElementById("updBar");
               if(bar) bar.style.display="";
             }
@@ -5987,7 +6056,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
           .catch(function(){ busy=false; });
       }catch(e){ busy=false; }
     }
-    setTimeout(check, 2000);
+    setTimeout(firstCheck, 900);                   /* 켤 때 한 번 */
     setInterval(check, 300000);                    /* 5분마다 */
     document.addEventListener("visibilitychange",function(){
       if(!document.hidden) setTimeout(check, 800); /* 앱을 다시 열 때 */
