@@ -66,8 +66,10 @@ h1 .vol{color:var(--lamp)}
 .count{font-family:var(--mono);font-size:13px}
 .count b{color:var(--lamp);font-weight:500}
 .restnote{color:#7FE3C4;font-size:11px}
-.hello{font-family:var(--serif);font-size:15px;color:var(--lamp);
-  text-align:center;margin:0 0 6px}
+/* 지도 아래 이름 줄 — 지도와 충분히 떼어 놓아요 */
+.hello{font-family:var(--serif);font-size:15.5px;color:var(--lamp);
+  text-align:center;margin:20px 0 0;letter-spacing:.01em;line-height:1.5}
+.hello b{font-weight:400;color:var(--lamp-soft)}
 .streak{font-family:var(--mono);font-size:12px;color:var(--dim);margin:0 0 16px}
 .streak b{color:var(--lamp-soft);font-weight:500}
 
@@ -103,6 +105,9 @@ h1 .vol{color:var(--lamp)}
 .rg{fill:#1D3652;stroke:#3E6890;stroke-width:.8;stroke-linejoin:round;cursor:pointer;
   transition:fill .5s ease,stroke .5s ease}
 .rg.mine{fill:var(--lamp);stroke:var(--lamp-soft)}
+/* 엄마·아빠가 아직 확인 안 한 땅은 조금 흐려요 */
+.rg.mine.unchecked{fill-opacity:.52}
+.gl.mine.unchecked{opacity:.35}
 .rg.next{stroke:var(--dawn);stroke-width:1.6;animation:breathe 2.4s ease-in-out infinite}
 .wmwrap{position:relative;background:#0A1826;border:1px solid #24405A;
   border-radius:14px;overflow:hidden;margin-bottom:12px}
@@ -357,7 +362,7 @@ h1 .vol{color:var(--lamp)}
 .sound{position:absolute;top:10px;right:10px;z-index:5;background:rgba(11,27,43,.7);
   border:1px solid #2A4A68;color:var(--dim);border-radius:99px;width:34px;height:34px;font-size:14px;cursor:pointer}
 
-.info{min-height:22px;text-align:center;font-size:13px;color:var(--dim);margin:12px 0 0}
+.info{min-height:22px;text-align:center;font-size:13px;color:var(--dim);margin:7px 0 0}
 .info b{color:var(--lamp-soft);font-weight:500}
 .today{margin-top:12px}
 .today .cap{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--dim);margin:0 0 8px}
@@ -525,6 +530,7 @@ textarea.ckin{resize:none;line-height:1.5}
 .stmsgbtn{flex:0 0 auto;white-space:nowrap;background:#12293D;border:1px solid #2A4A68;
   color:var(--dawn);border-radius:11px;font-size:12px;padding:0 14px;cursor:pointer;
   width:auto;min-width:64px}
+.stnote{font-size:11.5px;color:var(--dim);line-height:1.6;margin:0 0 10px;text-align:center}
 .stword{text-align:center;font-size:12.5px;color:#DDF0D0;margin-top:7px;line-height:1.6}
 /* 지도 위 도장 */
 .todaystamp{position:absolute;top:10px;left:10px;z-index:5;font-size:26px;
@@ -671,6 +677,8 @@ textarea.ckin{resize:none;line-height:1.5}
 .kidsub{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:3px}
 .kiddel{background:transparent;border:none;color:var(--dim);font-size:15px;
   cursor:pointer;padding:6px 4px;flex:0 0 auto}
+#mailVeil{z-index:64}
+#flyVeil{z-index:66}
 #movVeil{z-index:61}
 .movpanel{max-width:430px}
 .movtab{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:4px 0 14px}
@@ -1344,7 +1352,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <div class="chips" id="chips"></div>
   </section>
 
-  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-04-v</p>
+  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-05-b</p>
   </div>
 
   <div class="goalcard" id="goalBox"></div>
@@ -1408,6 +1416,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <div id="momBody" class="mombody"></div>
     <div class="stampbox" id="stampBox">
       <div class="sth">👩 엄마·아빠가 눌러 주세요</div>
+      <p class="stnote" id="stNote"></p>
       <div class="strow" id="stampRow"></div>
       <div id="stampMsgBox" class="stmsgbox">
         <input id="stampMsg" class="stmsg" type="text" maxlength="40"
@@ -2495,7 +2504,11 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       var has=!!mine[t.code];
       if(!pathOf[t.code]) return;
       pathOf[t.code].classList.toggle("mine",has);
-      if(glowOf[t.code]) glowOf[t.code].classList.toggle("mine",has);
+      pathOf[t.code].classList.toggle("unchecked", has && !isChecked(t.code));
+      if(glowOf[t.code]){
+        glowOf[t.code].classList.toggle("mine",has);
+        glowOf[t.code].classList.toggle("unchecked", has && !isChecked(t.code));
+      }
       if(numOf[t.code]) numOf[t.code].classList.toggle("lit",has);
       if(icoOf[t.code]) icoOf[t.code].classList.toggle("mine",has);
       if(ringOf[t.code]) ringOf[t.code].classList.remove("next");
@@ -4417,15 +4430,22 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   var MILE=[
     {id:"first", test:function(n){ return n>=1; },
      txt:"첫 땅을 얻었어요! 🎉\n\n"
-       +"오늘 무슨 일을 했는지 아세요?\n"
-       +"글 하나를 끝까지 읽었어요.\n\n"
-       +"별거 아닌 것 같지요? 그런데 어른들도 그걸 잘 못 해요.\n"
-       +"몇 줄 읽다가 휴대폰을 보고, 다시 읽다가 딴생각을 하거든요.\n\n"
-       +"그런데 오늘 그걸 해냈어요.\n"
-       +"그래서 지도에 불이 하나 켜진 거예요.\n\n"
-       +"이 지도는 읽은 만큼만 밝아져요.\n"
-       +"아무도 대신 켜 줄 수 없어요. 오직 나만 켤 수 있어요.\n\n"
-       +"내일 또 한 칸. 그거면 충분해요."},
+       +"지도에 불이 하나 켜졌어요.\n"
+       +"까맣던 화면에 생긴 첫 번째 불빛이에요.\n\n"
+       +"세상의 모든 큰일은 이렇게 시작해요.\n"
+       +"높은 건물도 벽돌 한 장부터,\n"
+       +"긴 여행도 첫걸음부터 시작하지요.\n\n"
+       +"오늘 그 첫걸음을 뗐어요.\n\n"
+       +"앞으로 이 지도가 어떻게 될지 상상해 보세요.\n"
+       +"한 칸이 열 칸이 되고,\n"
+       +"열 칸이 백 칸이 되고,\n"
+       +"어느 날 지도를 봤을 때 온통 환해져 있을 거예요.\n\n"
+       +"그때 오늘을 떠올리면 신기할 거예요.\n"
+       +"'저 많은 게 저 한 칸에서 시작했구나' 하고요.\n\n"
+       +"조급해하지 않아도 돼요.\n"
+       +"하루에 한 칸이면 충분하니까요.\n\n"
+       +"잘할 수 있어요.\n"
+       +"오늘 이미 한 번 해냈잖아요."},
 
     {id:"n10", test:function(n){ return n>=10; },
      txt:"열 칸을 채웠어요! 👏\n\n"
@@ -4602,7 +4622,12 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     beep([523,659,784,1047],0.3);
     document.getElementById("flyOpen").onclick=function(){
       v.classList.remove("on");
-      setTimeout(openMail,240);
+      /* 뒤에 열려 있던 창들을 먼저 닫아요 — 편지가 가려지지 않게 */
+      [].forEach.call(document.querySelectorAll(".veil.on"), function(x){
+        if(x!==document.getElementById("mailVeil")) x.classList.remove("on");
+      });
+      navStack.length=0;
+      setTimeout(openMail,260);
     };
     document.getElementById("flyLater").onclick=function(){
       v.classList.remove("on");
@@ -4764,6 +4789,13 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
               {e:"🌟",n:"멋져요"},{e:"❤️",n:"사랑해"}];
   function todayStamp(){ return (DB.stamps||{})[today()]; }
   function renderStamps(){
+    var nt=document.getElementById("stNote");
+    if(nt){
+      var un=uncheckedCount();
+      nt.innerHTML = un
+        ? ("도장을 찍으면 흐린 땅 "+un+"칸이 모두 환해져요")
+        : "지금까지 딴 땅이 모두 환해요 👍";
+    }
     var box=document.getElementById("stampRow"); box.innerHTML="";
     var got=todayStamp();
     if(got){
@@ -4781,6 +4813,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       b.onclick=function(){
         if(!DB.stamps) DB.stamps={};
         DB.stamps[today()]={e:st.e,n:st.n};
+        setTimeout(render,60);          /* 지도를 다시 그려 땅이 환해져요 */
         persist(); renderStamps(); showTodayStamp();
         beep([659,880,1175],0.4);
         info.innerHTML="<b>"+st.e+" "+esc(st.n)+"</b> 도장을 받았어요!";
@@ -5407,7 +5440,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     var n=0;
     Object.keys(DB.worlds||{}).forEach(function(k){ n+=(DB.worlds[k].claimed||[]).length; });
     el.style.display="";
-    el.textContent = "🗺️ "+withUi(nm)+" 지도 · "+n+"칸";
+    el.innerHTML = "🗺️ "+esc(withUi(nm))+" 지도 <b>· "+n+"칸</b>";
   }
   function renderHabits(){
     var box=document.getElementById("habits"); if(!box) return;
@@ -5941,13 +5974,66 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     renderCandidates();
     ckLandB.textContent=(ckChosen||t).full;
     ckRound.value=state.unlocked+1;       /* 다음 땅 번호 = 지문 번호 자동 채움 */
-    ckNote.value=""; ckWarn.textContent="";
+    ckNote.value=""; ckWarn.textContent=""; ckWarn.removeAttribute("data-asked");
     navOpen(checkVeil);
     setTimeout(function(){ ckNote.focus(); },200);
   }
   doBtn.addEventListener("click",openCheck);
 
   document.getElementById("ckCancel").addEventListener("click",navBack);
+  /* 그 땅을 딴 날, 엄마·아빠가 도장을 찍었는지 봐요 */
+  /* 도장을 찍은 날까지의 땅은 모두 확인된 것으로 봐요.
+     엄마가 며칠 뒤에 찍어도 그때까지 딴 땅이 함께 환해져요. */
+  function lastStampDay(){
+    var days=Object.keys(DB.stamps||{});
+    if(!days.length) return "";
+    days.sort();
+    return days[days.length-1];
+  }
+  function isChecked(code){
+    var upto=lastStampDay();
+    if(!upto) return false;
+    var when="";
+    var logs=DB.logs||[];
+    for(var i=logs.length-1;i>=0;i--){
+      if(logs[i].code===code && (!logs[i].w || logs[i].w===DB.cur)){ when=logs[i].date||""; break; }
+    }
+    if(!when) return true;          /* 언제 딴 건지 모르면 흐리게 두지 않아요 */
+    return when<=upto;
+  }
+  function uncheckedCount(){
+    var n=0;
+    (state && state.claimed || []).forEach(function(c){ if(!isChecked(c)) n++; });
+    return n;
+  }
+
+  /* ---------- 성의 있게 적었는지 살펴봐요 ----------
+     막는 게 아니라, 한 번 더 생각해 보게 하는 정도예요. */
+  function checkNote(t){
+    t=String(t||"").trim();
+    var bare=t.replace(/\s/g,"");
+    if(bare.length<6) return "조금만 더 적어 볼까요? 한 문장이면 충분해요.";
+    /* 자음·모음만 (ㅁㄴㅇㄹ, ㅋㅋㅋ) */
+    if(/^[ㄱ-ㅎㅏ-ㅣ\s]+$/.test(t)) return "글자로 적어 볼까요?";
+    /* 숫자·기호만 */
+    if(!/[가-힣a-zA-Z]/.test(bare)) return "오늘 읽은 이야기를 글로 적어 주세요.";
+    /* 같은 글자만 반복 (ㅋㅋㅋㅋ, 아아아아, 1111) */
+    var uniq={};
+    for(var i=0;i<bare.length;i++) uniq[bare.charAt(i)]=1;
+    if(Object.keys(uniq).length<=2) return "같은 글자 말고, 무슨 이야기였는지 적어 주세요.";
+    /* 키보드를 죽 누른 자국 */
+    if(/(ㅁㄴㅇ|ㅇㄹㅎ|asdf|qwer|zxcv|1234|가나다라)/i.test(bare))
+      return "아무거나 누른 것 같아요. 오늘 읽은 이야기를 적어 볼까요?";
+    /* 어제와 똑같이 적었으면 */
+    var last="";
+    try{
+      var logs=(DB.logs||[]).filter(function(l){ return l.note; });
+      if(logs.length) last=(logs[logs.length-1].note||"").replace(/\s/g,"");
+    }catch(e){}
+    if(last && last===bare) return "어제와 똑같아요. 오늘 읽은 건 무엇이었나요?";
+    return "";
+  }
+
   document.getElementById("ckGo").addEventListener("click",function(){
     var note=(ckNote.value||"").trim();
     var rnd=parseInt(ckRound.value,10);
@@ -5955,6 +6041,15 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     if(note.length<2){ ckWarn.textContent=((DB.course==="read")
       ? "오늘 지문이 무슨 이야기였는지 적어야 땅을 딸 수 있어요."
       : "오늘 지문이 무슨 이야기였는지 적어야 다음으로 갈 수 있어요."); ckNote.focus(); return; }
+    /* 성의 있게 적었는지 한 번 되물어요 — 두 번째 누르면 그대로 갑니다 */
+    var msg=checkNote(note);
+    if(msg && ckWarn.getAttribute("data-asked")!==note){
+      ckWarn.textContent=msg;
+      ckWarn.setAttribute("data-asked", note);
+      ckNote.focus();
+      return;
+    }
+    ckWarn.removeAttribute("data-asked");
     navBack();
     commitLand(note, rnd, ckChosen);
   });
