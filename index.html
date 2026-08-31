@@ -1344,7 +1344,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <div class="chips" id="chips"></div>
   </section>
 
-  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-04-u</p>
+  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-04-v</p>
   </div>
 
   <div class="goalcard" id="goalBox"></div>
@@ -3996,7 +3996,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
         b.onclick=function(){
           DB.goal={wk:weekKey(), n:+b.getAttribute("data-n"), cheered:false};
           persist(); renderGoal(); beep([659,880],0.3);
-          info.innerHTML="<b>🎯 이번 주 목표 "+DB.goal.n+"칸</b> · 내가 정했어요!";
+          info.innerHTML="<b>🎯 이번 주 목표 "+DB.goal.n+"칸</b>";
         };
       });
       return;
@@ -5391,6 +5391,15 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     }
     return n;
   }
+  /* 이름 뒤에 '의'를 자연스럽게 붙여요 — 받침이 있으면 '이의' */
+  function withUi(nm){
+    nm=String(nm||"").trim();
+    if(!nm) return "";
+    var last=nm.charCodeAt(nm.length-1);
+    if(last<0xAC00 || last>0xD7A3) return nm+"의";   /* 한글이 아니면 그대로 */
+    var jong=(last-0xAC00)%28;                       /* 받침 */
+    return nm + (jong ? "이의" : "의");
+  }
   function showHello(){
     var el=document.getElementById("hello"); if(!el) return;
     var nm=(DB.name||"").trim();
@@ -5398,7 +5407,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     var n=0;
     Object.keys(DB.worlds||{}).forEach(function(k){ n+=(DB.worlds[k].claimed||[]).length; });
     el.style.display="";
-    el.textContent = "🗺️ "+nm+"의 지도 · "+n+"칸";
+    el.textContent = "🗺️ "+withUi(nm)+" 지도 · "+n+"칸";
   }
   function renderHabits(){
     var box=document.getElementById("habits"); if(!box) return;
