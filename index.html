@@ -813,6 +813,14 @@ textarea.ckin{resize:none;line-height:1.5}
 .ivf .k{flex:0 0 62px;font-size:11px;color:var(--dawn);font-family:var(--sans);
   font-weight:500;padding-top:2px;line-height:1.45}
 .ivf .v{flex:1;font-size:13px;color:#C9DAE8;line-height:1.6}
+/* 실제 사진 — 위키백과에서 받아와요 */
+.ivphoto{margin:0 0 12px;border-radius:14px;overflow:hidden;background:#0C1F31;
+  border:1px solid #1E3B57;position:relative}
+.ivphoto img{display:block;width:100%;height:auto;max-height:220px;object-fit:cover;
+  opacity:0;transition:opacity .35s}
+.ivphoto img.on{opacity:1}
+.ivphotocap{position:absolute;right:8px;bottom:6px;font-family:var(--mono);font-size:9.5px;
+  color:rgba(255,255,255,.75);background:rgba(0,0,0,.45);padding:2px 7px;border-radius:99px}
 .ivmaps{display:flex;gap:12px;align-items:center;justify-content:center;margin:2px 0 12px}
 #ivShape{width:112px;height:112px;flex:0 0 auto}
 #ivMini{width:74px;height:90px;flex:0 0 auto;opacity:.95}
@@ -1219,7 +1227,14 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   .hgu button{font-size:13.5px;padding:11px 6px}
   .hsido{font-size:15px;padding:13px 15px}
   .hsearch{font-size:15.5px;padding:14px 16px}
-  .ivwish,.ivfav{font-size:15px;padding:14px}
+  /* 카드 버튼 위계 — 내용은 앞으로, 부가 기능은 뒤로 */
+.panel > button.ivmore{background:#12293D;border:1px solid #2A4A68;color:var(--paper);
+  font-size:14px;font-weight:700;padding:13px;border-radius:12px;margin-bottom:10px}
+.panel > button.ivmore:hover{border-color:var(--dawn)}
+.panel > button.ivwish{background:transparent;border:1px dashed #2A4A68;color:var(--dim);
+  font-size:12.5px;font-weight:500;padding:10px;border-radius:12px;margin:0 0 14px}
+.panel > button.ivwish.on{background:rgba(255,194,75,.12);border-style:solid;
+  border-color:var(--lamp);color:var(--lamp);font-weight:700}
   .imicons{max-width:380px}
   .imic{font-size:22px}
   .imwow{font-size:13.5px;max-width:380px}
@@ -1352,7 +1367,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <div class="chips" id="chips"></div>
   </section>
 
-  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-05-b</p>
+  <p style="text-align:center;font-family:var(--mono);font-size:10px;color:#3E5C78;margin:22px 0 0">v2026-08-05-f</p>
   </div>
 
   <div class="goalcard" id="goalBox"></div>
@@ -1394,10 +1409,10 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <p class="ckpick">오늘은 어디로 갈까요?</p>
     <div class="ckopts" id="ckOpts"></div>
     <p id="ckLand" style="display:none">이번에 딸 땅: <b></b></p>
-    <label class="ckl">몇 번 지문을 읽었어요?
+    <label class="ckl" id="ckRoundL">몇 번 지문을 읽었어요?
       <input id="ckRound" type="number" min="1" inputmode="numeric" class="ckin">
     </label>
-    <label class="ckl">오늘 지문은 무슨 이야기였어?
+    <label class="ckl" id="ckNoteL">오늘 지문은 무슨 이야기였어?
       <textarea id="ckNote" rows="3" class="ckin"></textarea>
     </label>
     <p class="ckwarn" id="ckWarn"></p>
@@ -1425,7 +1440,8 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       </div>
     </div>
     <button id="momShare">📤 카카오·문자로 보내기</button>
-    <button id="momMail" class="btn2" style="margin-top:8px">💌 편지함 열기<span id="mailBadge2" class="mbadge" style="display:none"></span></button>
+    <button id="mailWrite" class="btn2" style="margin-top:8px">💌 아이에게 편지 쓰기</button>
+    <button id="momMail" class="btn2" style="margin-top:8px;display:none">편지함<span id="mailBadge2" class="mbadge" style="display:none"></span></button>
 
     <button id="momClose" class="skip">닫기</button>
   </div>
@@ -1459,6 +1475,10 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
 <div class="veil" id="infoVeil">
   <div class="panel infopanel">
     <div class="big" id="ivEmo">📍</div>
+    <div class="ivphoto" id="ivPhoto" style="display:none">
+      <img id="ivPhotoImg" alt="" loading="lazy">
+      <div class="ivphotocap" id="ivPhotoCap"></div>
+    </div>
     <div class="ivmaps" id="ivMaps">
       <svg id="ivShape" viewBox="0 0 100 100" aria-hidden="true">
         <g id="ivShapePath"></g>
@@ -1555,11 +1575,11 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <h2 class="wcTitle2" style="margin-top:22px">이렇게 해요</h2>
     <div class="hows">
       <div class="howrow"><span class="hown">1</span>
-        <div><b>지문을 읽어요</b><small>스터디포스 비문학독서클럽·국어독해 온라인 프로그램,
-          포스마스터노트의 지문을 읽어요</small></div></div>
+        <div><b>지문을 읽거나 훈련을 해요</b><small>비문학독서클럽·포스마스터노트의 지문을 읽거나,
+          국어독해 온라인 훈련을 해요. 하나를 끝낼 때마다 땅 한 칸이 생겨요</small></div></div>
       <div class="howrow"><span class="hown">2</span>
-        <div><b>「오늘 지문 다 읽었어요」를 눌러요</b><small>읽은 내용을 한 줄 적으면
-          우리나라 또는 세계의 땅 한 칸이 내 것이 돼요</small></div></div>
+        <div><b>다 했으면 버튼을 눌러요</b><small>무엇을 읽었는지, 무엇을 배웠는지
+          한 줄 적으면 그 땅이 내 것이 돼요</small></div></div>
       <div class="howrow"><span class="hown">3</span>
         <div><b>새로 얻은 땅을 만나요</b><small>그 고장과 나라의 신기한 이야기가
           카드로 나와요</small></div></div>
@@ -1580,12 +1600,11 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
         <div><b>엄마·아빠에게 알려줄 수 있어요</b><small>카드에서 알려주고 싶은 것을 고르면
           「엄마에게」 화면에 모여요. 퀴즈로 낼 수도 있고요</small></div></div>
       <div class="howrow"><span class="hown2">💌</span>
-        <div><b>편지를 주고받아요</b><small>어른이 편지를 넣어 두면 정해진 날에 열려요.
-          답장도 쓸 수 있어요</small></div></div>
+        <div><b>편지가 와요</b><small>땅을 따다 보면 가끔 편지가 날아와요.
+          엄마·아빠가 보낸 편지도, 땅따먹기가 보내는 편지도 있어요. 답장도 쓸 수 있어요</small></div></div>
       <div class="howrow"><span class="hown2">💾</span>
-        <div><b>백업을 꼭 해 두세요</b><small>기록은 이 기기 안에만 있어요.
-          설정 → 백업하기 → 카톡으로 보내기.
-          폰을 바꿔도, 컴퓨터에서도 이어서 할 수 있어요</small></div></div>
+        <div><b>기록은 이 기기 안에만 있어요</b><small>폰을 바꾸거나 컴퓨터에서도 하려면
+          설정 → 백업하기를 써요. 엄마·아빠와 함께 해 두면 안심이에요</small></div></div>
       <div class="howrow"><span class="hown2">📲</span>
         <div><b>앱으로 설치하면 편해요</b><small>홈 화면에 아이콘이 생기고
           인터넷이 없어도 열려요</small></div></div>
@@ -1721,10 +1740,11 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
 <div class="veil" id="hbVeil">
   <div class="panel hbpanel">
     <div class="big">✅</div>
-    <h3>무엇을 하고 있나요?</h3>
-    <p class="lead">하고 있는 것만 고르면 돼요. 나중에 바꿀 수 있어요.</p>
+    <h3 id="hbTitle">함께 하는 훈련이 있나요?</h3>
+    <p class="lead">하고 있는 것만 고르면 돼요. 없으면 그냥 넘어가도 돼요.<br>
+       고른 훈련은 첫 화면에서 매일 체크할 수 있어요.</p>
     <div class="hbpick" id="hbPick"></div>
-    <button id="hbDone" class="btn">다 골랐어요</button>
+    <button id="hbDone" class="btn">이대로 할래요</button>
   </div>
 </div>
 
@@ -1759,7 +1779,6 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     <div class="tb" id="mailTag"></div>
     <h3>편지함</h3>
     <div id="mailBody" class="mailbody"></div>
-    <button id="mailWrite" class="btn2" style="margin-bottom:8px">✏️ 엄마·아빠가 편지 쓰기</button>
     <button id="mailClose" class="skip">닫기</button>
   </div>
 </div>
@@ -1867,6 +1886,8 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
         <input type="checkbox" id="optBig" class="sc"></label>
       <label class="sr sw"><span class="sk">🎬 연출 줄이기</span>
         <input type="checkbox" id="optCalm" class="sc"></label>
+      <label class="sr sw"><span class="sk">📷 카드에 실제 사진 보기</span>
+        <input type="checkbox" id="optPhoto" class="sc"></label>
 
       <div class="sg">기록</div>
       <div class="sr"><span class="sk">이 세계</span><b id="statW">0 / 50</b></div>
@@ -2294,6 +2315,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
             field:w.field, fieldE:w.fieldE,
             home:DB.home, sound:DB.sound, asked:DB.asked, welcomed:DB.welcomed,
             habits:DB.habits, doing:DB.doing, tells:DB.tells, mile:DB.mile, bakDay:DB.bakDay,
+            habitsAsked:DB.habitsAsked, noPhoto:DB.noPhoto,
             streak:DB.streak, best:DB.best, lastDone:DB.lastDone, rested:DB.rested,
             todayN:DB.todayN, logs:DB.logs };
   }
@@ -2304,6 +2326,8 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     DB.home=st.home; DB.sound=st.sound; DB.asked=st.asked; DB.welcomed=st.welcomed;
     DB.habits=st.habits||{}; DB.doing=st.doing||{}; DB.tells=st.tells||{}; DB.mile=st.mile||{};
     DB.bakDay=st.bakDay||"";
+    DB.habitsAsked=!!st.habitsAsked || !!(st.doing && Object.keys(st.doing).length);
+    DB.noPhoto=!!st.noPhoto;
     DB.streak=st.streak; DB.best=st.best; DB.lastDone=st.lastDone; DB.rested=st.rested;
     DB.todayN=st.todayN; DB.logs=st.logs;
     persist();
@@ -2566,7 +2590,10 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     tally.textContent = n>0 ? ("· 오늘 "+n+"칸") : "";
     if(u>=TOTAL){ doBtn.disabled=true;
       doBtn.textContent=(DB.course==="read")?"이 세계를 모두 얻었어요":"이 세계를 모두 채웠어요"; }
-    else { doBtn.disabled=false; doBtn.textContent = n>0 ? "한 지문 더 읽었어요" : "오늘 지문 다 읽었어요"; }
+    else { doBtn.disabled=false;
+      doBtn.textContent = (DB.course==="kor")
+        ? (n>0 ? "한 번 더 훈련했어요" : "오늘 훈련 다 했어요")
+        : (n>0 ? "한 지문 더 읽었어요" : "오늘 지문 다 읽었어요"); }
     document.getElementById("soundBtn").textContent=state.sound?"🔊":"🔇";
     Object.keys(chipOf).forEach(function(code){        /* 찜·별표 표시 */
       chipOf[code].classList.toggle("wish", DB.wish===code);
@@ -2583,6 +2610,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       : (SIDO_KEYS.map(function(k){return SIDO[k].n;}).join(" · ") + " — " + TOTAL + "칸");
     renderHabits();          /* 오늘 한 일 */
     showHello();             /* 이름 인사 */
+    maybeAskHabits();        /* 처음이면 훈련을 물어봐요 */
   }
 
   /* ---------- 지도 탭 ---------- */
@@ -2951,6 +2979,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     var lg=lastLog();
     document.getElementById("lastLand").textContent = lg ? (lg.land+" ("+fmtDate(lg.date)+")") : "없음";
     document.getElementById("setName").value = DB.name || "";
+    document.getElementById("optPhoto").checked = !DB.noPhoto;
     var h=null; (BASE||[]).forEach(function(t){ if(t.code===DB.home) h=t; });
     /* 우리 동네가 다른 세계에 있어도 이름을 찾아 줍니다 */
     var homeTxt="아직 안 정함", homeHere=true;
@@ -2992,7 +3021,27 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   document.getElementById("bmClose").addEventListener("click",navBack);
   document.getElementById("qzClose").addEventListener("click",navBack);
   document.getElementById("hbSet").addEventListener("click",openHabitPick);
-  document.getElementById("hbDone").addEventListener("click",navBack);
+  document.getElementById("hbDone").addEventListener("click",function(){
+    DB.habitsAsked=true; persist(); navBack();
+  });
+  /* 처음 시작을 마치고 메인에 오면 한 번만 물어봐요 */
+  var _hbAskTimer=null;
+  function maybeAskHabits(){
+    if(DB.habitsAsked || !DB.welcomed || !state) return;
+    if(_hbAskTimer) return;
+    _hbAskTimer=setTimeout(function(){
+      _hbAskTimer=null;
+      if(DB.habitsAsked) return;
+      /* 닫힌 창이 목록에 남아 있으면 정리해요 */
+      for(var i=navStack.length-1;i>=0;i--){
+        if(!navStack[i] || !navStack[i].classList || !navStack[i].classList.contains("on")) navStack.splice(i,1);
+      }
+      /* 다른 창·편지 알림이 떠 있으면 뒤로 미뤄요 — 편지가 먼저예요 */
+      var fv=document.getElementById("flyVeil");
+      if(document.querySelector(".veil.on") || (fv && fv.classList.contains("on"))) { maybeAskHabits(); return; }
+      openHabitPick();
+    }, 900);
+  }
   document.getElementById("wcGo").addEventListener("click",function(){
     var v=(document.getElementById("wcNameIn").value||"").trim();
     if(v){ DB.name=v; persist(); }
@@ -3150,8 +3199,30 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   /* 오프라인에서도 열리고, 앱으로 설치될 수 있게 합니다 */
   if("serviceWorker" in navigator && location.protocol.indexOf("http")===0){
     window.addEventListener("load", function(){
-      navigator.serviceWorker.register("sw.js").catch(function(){});
+      navigator.serviceWorker.register("sw.js", {updateViaCache:"none"})
+        .then(function(reg){
+          /* 켤 때마다 새 sw.js가 있는지 봐요 */
+          try{ reg.update(); }catch(e){}
+        })
+        .catch(function(){});
+      /* 새 워커가 자리를 잡으면 한 번 새로 받아요 */
+      var swReloaded=false;
+      navigator.serviceWorker.addEventListener("controllerchange", function(){
+        if(swReloaded) return; swReloaded=true;
+        if(window.__updReloading) return;      /* 자동 갱신이 이미 새로 받는 중이면 겹치지 않게 */
+        freshReload();
+      });
     });
+  }
+  /* 브라우저 캐시를 건너뛰고 새로 받아요 (컴퓨터 크롬에서 옛 화면이 남지 않게) */
+  function freshReload(){
+    window.__updReloading=true;
+    var base=location.pathname;
+    location.replace(base+"?r="+Date.now());
+  }
+  /* ?r= 로 들어왔으면 주소를 깨끗이 지워요 */
+  if(/[?&][rv]=\d+/.test(location.search)){
+    try{ history.replaceState(null,"",location.pathname+location.hash); }catch(e){}
   }
   var deferredPrompt=null;
   var UA=navigator.userAgent||"";
@@ -4720,13 +4791,15 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     DB.stamps[t].msg=m; persist(); renderStamps(); showTodayStamp();
     info.innerHTML = m ? ('<b>💬 "'+esc(m)+'"</b>') : "<b>한마디를 지웠어요</b>";
   });
-  document.getElementById("updBtn").addEventListener("click",function(){
-    try{ location.replace(location.pathname+"?v="+Date.now()); }
-    catch(e){ location.reload(); }
-  });
+  document.getElementById("updBtn").addEventListener("click",freshReload);
   document.getElementById("reloadBtn").addEventListener("click",function(){
-    try{ location.replace(location.pathname+"?v="+Date.now()); }
-    catch(e){ location.reload(); }
+    /* 저장된 파일까지 비우고 새로 받아요 */
+    var go=freshReload;
+    if(window.caches && caches.keys){
+      caches.keys().then(function(ks){
+        return Promise.all(ks.map(function(k){ return caches.delete(k); }));
+      }).catch(function(){}).then(go);
+    } else go();
   });
   document.getElementById("mailBtn").addEventListener("click",openMail);
   document.getElementById("momMail").addEventListener("click",function(){
@@ -4845,7 +4918,10 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     try{ localStorage.removeItem("sf_undo"+kidSuffix(KID.cur)); }catch(e){}
     setTimeout(function(){ location.replace(location.pathname); },200);
   });
-    document.getElementById("kidBtn").addEventListener("click",openKids);
+    document.getElementById("optPhoto").addEventListener("change",function(){
+    DB.noPhoto=!this.checked; persist();
+  });
+  document.getElementById("kidBtn").addEventListener("click",openKids);
   document.getElementById("kidClose").addEventListener("click",navBack);
   document.getElementById("kidAdd").addEventListener("click",addKid);
   document.getElementById("movClose").addEventListener("click",navBack);
@@ -5449,9 +5525,15 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     var rd=readDoneToday();
     var r0=document.createElement("div");
     r0.className="hbrow"+(rd?" done":"");
+    var got=(state&&state.claimed)?state.claimed.length:0;
+    var tot=(typeof TOTAL==="number"&&TOTAL)?TOTAL:0;
+    var all=0; Object.keys(DB.worlds||{}).forEach(function(k){ all+=(DB.worlds[k].claimed||[]).length; });
+    var pct0=tot?Math.round(got/tot*100):0;
     r0.innerHTML='<div class="hbe">📖</div>'
       +'<div class="hbmid"><div class="hbname">'+esc(COURSE?COURSE.name:"독해")+'</div>'
-      +'<div class="hbsub">'+(rd?"오늘 땅을 땄어요":"오늘 지문을 읽어요")+'</div></div>'
+      +'<div class="hbsub">'+(WORLD&&WORLD.title?esc(WORLD.title.split("·").pop().trim()):"")
+      +' · '+got+' / '+tot+'칸'+(all>got?(' · 모두 '+all+'칸'):'')+'</div>'
+      +'<div class="hbbar"><div class="hbfill" style="width:'+pct0+'%"></div></div></div>'
       +'<div class="hbchk">✓</div>';
     box.appendChild(r0);
     /* ② 고른 것만 보여 줘요 */
@@ -5617,6 +5699,7 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
     var sp=document.getElementById("ivShapePath"), se=document.getElementById("ivShapeEmo");
     sp.classList.remove("draw"); se.classList.remove("on");
     clearTell();                 /* 아직 안 딴 칸에는 알려주기가 없어요 */
+    showPhoto(null);             /* 사진도 안 보여요 — 따고 나서 만나요 */
     var useD = (t.kind!=="mark" && t.d) ? t.d : o.d;
     var useB = (t.kind!=="mark" && t.d) ? t.bb : o.bb;
     if(useD){
@@ -5705,11 +5788,13 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
       setShapeBox(t.bb || ((WORLD.outlines||{})[t.grp]||{}).bb, sp);
       ivShapeD=t.d;
       setupTell(t);
+      showPhoto(t);            /* 실제 사진 */
     } else {
       sp.style.display="none"; drawShape(sp,"","ivshape"); ivShapeD="";
       document.getElementById("ivShape").setAttribute("viewBox","0 0 100 100");
       se.textContent=t.e||"📍";
       setupTell(t);              /* 랜드마크에도 알려주기 */
+      showPhoto(t);
     }
 
     /* 오른쪽: 1세계 지도에서 어디인지 */
@@ -5971,6 +6056,14 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   function openCheck(){
     var t=nextTile();
     if(!t) return;
+    /* 과목에 맞는 말로 바꿔요 — 국어독해는 '지문'이 아니라 '훈련' */
+    var isKor=(DB.course==="kor");
+    document.getElementById("ckBadge").textContent = isKor?"오늘의 훈련":"오늘의 지문";
+    document.getElementById("ckTitle").textContent = isKor?"다 했나요?":"다 읽었나요?";
+    var rl=document.getElementById("ckRoundL");
+    if(rl) rl.childNodes[0].nodeValue = isKor?"몇 회차 훈련이었어요?":"몇 번 지문을 읽었어요?";
+    var nl=document.getElementById("ckNoteL");
+    if(nl) nl.childNodes[0].nodeValue = isKor?"오늘 훈련에서 무엇을 배웠어?":"오늘 지문은 무슨 이야기였어?";
     renderCandidates();
     ckLandB.textContent=(ckChosen||t).full;
     ckRound.value=state.unlocked+1;       /* 다음 땅 번호 = 지문 번호 자동 채움 */
@@ -5981,6 +6074,74 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
   doBtn.addEventListener("click",openCheck);
 
   document.getElementById("ckCancel").addEventListener("click",navBack);
+  /* ---------- 실제 사진 ----------
+     위키백과에서 그 고장·나라의 대표 사진을 받아와요.
+     받은 주소는 기억해 두어 두 번째부터는 바로 떠요. 못 받으면 조용히 넘어가요. */
+  var PHOTO_KEY="sf_photo";
+  function photoCache(){ try{ return JSON.parse(localStorage.getItem(PHOTO_KEY)||"{}"); }catch(e){ return {}; } }
+  function photoSave(m){ try{ localStorage.setItem(PHOTO_KEY, JSON.stringify(m)); }catch(e){} }
+  var photoSeq=0;
+  function wikiTitle(t){
+    if(t.wiki) return t.wiki;
+    var n=t.full||t.name||"";
+    /* 세계 지도 나라 이름은 그대로, 국내는 시군구 이름 그대로 */
+    return n.replace(/\s*\(.*?\)\s*/g,"").trim();
+  }
+  function fetchPhoto(t, cb){
+    var key=t.code||wikiTitle(t);
+    var cache=photoCache();
+    if(cache[key]!==undefined){ cb(cache[key]); return; }
+    if(!navigator.onLine){ cb(null); return; }
+    var title=wikiTitle(t);
+    if(!title){ cb(null); return; }
+    var url="https://ko.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(title);
+    var done=false;
+    function finish(v){ if(done) return; done=true; cache=photoCache(); cache[key]=v; photoSave(cache); cb(v); }
+    try{
+      fetch(url,{headers:{"Accept":"application/json"}}).then(function(r){
+        if(!r.ok) throw 0; return r.json();
+      }).then(function(j){
+        var src=(j && j.thumbnail && j.thumbnail.source) || (j && j.originalimage && j.originalimage.source) || null;
+        if(src){
+          /* 조금 더 큰 그림으로 */
+          src=src.replace(/\/(\d+)px-/, "/640px-");
+          finish({src:src, from:"위키백과"});
+        } else throw 0;
+      }).catch(function(){
+        /* 이름 그대로 못 찾으면 검색으로 한 번 더 */
+        var q="https://ko.wikipedia.org/w/api.php?action=query&list=search&srlimit=1&format=json&origin=*&srsearch="
+              +encodeURIComponent(title);
+        fetch(q).then(function(r){ return r.json(); }).then(function(j){
+          var hit=j && j.query && j.query.search && j.query.search[0];
+          if(!hit) throw 0;
+          return fetch("https://ko.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(hit.title))
+            .then(function(r){ if(!r.ok) throw 0; return r.json(); });
+        }).then(function(j){
+          var src=(j && j.thumbnail && j.thumbnail.source) || null;
+          if(src){ src=src.replace(/\/(\d+)px-/, "/640px-"); finish({src:src, from:"위키백과"}); }
+          else finish(null);
+        }).catch(function(){ finish(null); });
+      });
+      setTimeout(function(){ finish(null); }, 6000);
+    }catch(e){ finish(null); }
+  }
+  function showPhoto(t){
+    var box=document.getElementById("ivPhoto"), img=document.getElementById("ivPhotoImg"),
+        cap=document.getElementById("ivPhotoCap");
+    if(!box||!img) return;
+    box.style.display="none"; img.classList.remove("on"); img.removeAttribute("src");
+    if(!t || DB.noPhoto) return;
+    var seq=++photoSeq;
+    fetchPhoto(t, function(v){
+      if(seq!==photoSeq) return;          /* 그새 다른 카드를 열었으면 버려요 */
+      if(!v || !v.src) return;
+      img.onload=function(){ if(seq===photoSeq){ box.style.display=""; img.classList.add("on"); } };
+      img.onerror=function(){ box.style.display="none"; };
+      img.src=v.src;
+      cap.textContent="사진: "+(v.from||"위키백과");
+    });
+  }
+
   /* 그 땅을 딴 날, 엄마·아빠가 도장을 찍었는지 봐요 */
   /* 도장을 찍은 날까지의 땅은 모두 확인된 것으로 봐요.
      엄마가 며칠 뒤에 찍어도 그때까지 딴 땅이 함께 환해져요. */
@@ -6126,13 +6287,12 @@ body.calm *{animation:none !important;transition-duration:.01ms !important}
               reloaded=true;
               saveTag(tag);
               /* 서비스 워커가 들고 있는 옛 파일도 함께 비웁니다 */
+              var go=function(){ freshReload(); };
               if(window.caches && caches.keys){
                 caches.keys().then(function(ks){
                   return Promise.all(ks.map(function(k){ return caches.delete(k); }));
-                }).catch(function(){}).then(function(){
-                  location.reload(true);
-                });
-              } else location.reload(true);
+                }).catch(function(){}).then(go);
+              } else go();
               return;
             }
             saveTag(tag);
